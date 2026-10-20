@@ -2,11 +2,11 @@
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/config/DatabaseConfig.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/Cliente.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/EntregaOrdemDeServico.java
+/home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/FormaPagamento.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/Fornecedor.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/Garantia.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/OrdemDeServico.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/OrdemPeca.java
-/home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/Pagamento.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/Peca.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/PecaComDefeito.java
 /home/gustavoaes/POO/SistemaDeAssistenciaTecnica/src/main/java/com/assistencia/entity/StatusServico.java

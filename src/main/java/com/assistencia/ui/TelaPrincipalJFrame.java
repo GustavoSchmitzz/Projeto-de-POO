@@ -28,9 +28,7 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        painelPrincipalJPanel = new javax.swing.JPanel();
         menuJMenuBar = new javax.swing.JMenuBar();
         clienteJMenu = new javax.swing.JMenu();
         fornecedorJMenu = new javax.swing.JMenu();
@@ -39,41 +37,19 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         ordemDeServicoJMenu = new javax.swing.JMenu();
         pecaJMenu = new javax.swing.JMenu();
         ordemDaPecaJMenu = new javax.swing.JMenu();
-        PagamentosJMenu = new javax.swing.JMenu();
+        formaPagamentosJMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 373, Short.MAX_VALUE)
+        javax.swing.GroupLayout painelPrincipalJPanelLayout = new javax.swing.GroupLayout(painelPrincipalJPanel);
+        painelPrincipalJPanel.setLayout(painelPrincipalJPanelLayout);
+        painelPrincipalJPanelLayout.setHorizontalGroup(
+            painelPrincipalJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1220, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
+        painelPrincipalJPanelLayout.setVerticalGroup(
+            painelPrincipalJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 719, Short.MAX_VALUE)
         );
 
         clienteJMenu.setText("Cliente");
@@ -97,8 +73,8 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         ordemDaPecaJMenu.setText("Ordem da Peça");
         menuJMenuBar.add(ordemDaPecaJMenu);
 
-        PagamentosJMenu.setText("jMenu1");
-        menuJMenuBar.add(PagamentosJMenu);
+        formaPagamentosJMenu.setText("Forma de pagamento");
+        menuJMenuBar.add(formaPagamentosJMenu);
 
         setJMenuBar(menuJMenuBar);
 
@@ -106,20 +82,11 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(painelPrincipalJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(painelPrincipalJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -151,17 +118,15 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu PagamentosJMenu;
     private javax.swing.JMenu clienteJMenu;
     private javax.swing.JMenu entregaOrdemDeServicoJMenu;
+    private javax.swing.JMenu formaPagamentosJMenu;
     private javax.swing.JMenu fornecedorJMenu;
     private javax.swing.JMenu garantiaJMenu;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuBar menuJMenuBar;
     private javax.swing.JMenu ordemDaPecaJMenu;
     private javax.swing.JMenu ordemDeServicoJMenu;
+    private javax.swing.JPanel painelPrincipalJPanel;
     private javax.swing.JMenu pecaJMenu;
     // End of variables declaration//GEN-END:variables
 }

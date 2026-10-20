@@ -9,8 +9,8 @@ com/assistencia/service/FornecedorService.class
 com/assistencia/entity/OrdemDeServico.class
 com/assistencia/service/ClienteService.class
 com/assistencia/service/PecaComDefeitoService.class
-com/assistencia/Main.class
 com/assistencia/repository/GarantiaRepository.class
+com/assistencia/Main.class
 com/assistencia/service/GarantiaService.class
 com/assistencia/service/OrdemPecaService.class
 com/assistencia/repository/PecaRepository.class
@@ -18,12 +18,12 @@ com/assistencia/entity/OrdemPeca.class
 com/assistencia/config/DatabaseConfig.class
 com/assistencia/repository/OrdemPecaRepository.class
 com/assistencia/entity/StatusServico.class
+com/assistencia/entity/FormaPagamento.class
 com/assistencia/service/PagamentoService.class
 com/assistencia/service/EntregaOrdemDeServicoService.class
 com/assistencia/repository/TecnicoRepository.class
 com/assistencia/entity/Cliente.class
 com/assistencia/entity/Garantia.class
-com/assistencia/entity/Pagamento.class
 com/assistencia/repository/PecaComDefeitoRepository.class
 com/assistencia/entity/Peca.class
 com/assistencia/entity/PecaComDefeito.class
