@@ -10,7 +10,7 @@ public class OrdemDeServico {
     private PecaComDefeito peca;
     private StatusServico statusServico;
     private Garantia garantia;
-    private FormaPagamento  pagamento;
+    private FormaDePagamento  pagamento;
 
     public Integer getId() {
         return id;
@@ -68,11 +68,11 @@ public class OrdemDeServico {
         this.garantia = garantia;
     }
 
-    public FormaPagamento getPagamento() {
+    public FormaDePagamento getPagamento() {
         return pagamento;
     }
 
-    public void setPagamento(FormaPagamento pagamento) {
+    public void setPagamento(FormaDePagamento pagamento) {
         this.pagamento = pagamento;
     }
     
