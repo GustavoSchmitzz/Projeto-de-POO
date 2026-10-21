@@ -2,13 +2,13 @@ package com.assistencia.repository;
 
 import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.OrdemDeServico;
-import com.assistencia.entity.FormaPagamento;
+import com.assistencia.entity.FormaDePagamento;
 
 import java.sql.*;
 import java.util.Properties;
 
 public class PagamentoRepository {
-    public FormaPagamento cria(FormaPagamento pagamento) {
+    public FormaDePagamento cria(FormaDePagamento pagamento) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -33,7 +33,7 @@ public class PagamentoRepository {
         }
         return null;
     }
-    public FormaPagamento buscaOID(int id) {
+    public FormaDePagamento buscaOID(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -47,7 +47,7 @@ public class PagamentoRepository {
 
             try (ResultSet resultado = comando.executeQuery()) {
                 if (resultado.next()) {
-                    FormaPagamento pagamento = new FormaPagamento();
+                    FormaDePagamento pagamento = new FormaDePagamento();
                     pagamento.setId(id);
                     pagamento.setFormaPagamento(resultado.getString("forma_pagamento"));
 
@@ -80,7 +80,7 @@ public class PagamentoRepository {
         }
         return false;
     }
-    public boolean atualiza(FormaPagamento pagamento) {
+    public boolean atualiza(FormaDePagamento pagamento) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

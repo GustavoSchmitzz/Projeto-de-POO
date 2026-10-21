@@ -75,7 +75,7 @@ public class OrdemDeServicoRepository {
                     garantia.setId(resultado.getInt("id_garantia"));
                     os.setGarantia(garantia);
 
-                    FormaPagamento pagamento = new FormaPagamento();
+                    FormaDePagamento pagamento = new FormaDePagamento();
                     pagamento.setId(resultado.getInt("id_pagamento"));
                     os.setPagamento(pagamento);
 
