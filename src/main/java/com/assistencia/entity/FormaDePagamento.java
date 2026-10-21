@@ -1,6 +1,6 @@
 package com.assistencia.entity;
 
-public class FormaPagamento {
+public class FormaDePagamento {
     private int id;
     private String formaPagamento;
 
