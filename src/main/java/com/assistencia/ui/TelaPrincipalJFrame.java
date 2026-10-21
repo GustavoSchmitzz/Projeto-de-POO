@@ -38,6 +38,8 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         pecaJMenu = new javax.swing.JMenu();
         ordemDaPecaJMenu = new javax.swing.JMenu();
         formaPagamentosJMenu = new javax.swing.JMenu();
+        statusServicoJMenu = new javax.swing.JMenu();
+        tecnicoJMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,11 +47,11 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         painelPrincipalJPanel.setLayout(painelPrincipalJPanelLayout);
         painelPrincipalJPanelLayout.setHorizontalGroup(
             painelPrincipalJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1220, Short.MAX_VALUE)
+            .addGap(0, 1232, Short.MAX_VALUE)
         );
         painelPrincipalJPanelLayout.setVerticalGroup(
             painelPrincipalJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 748, Short.MAX_VALUE)
         );
 
         clienteJMenu.setText("Cliente");
@@ -73,8 +75,14 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         ordemDaPecaJMenu.setText("Ordem da Peça");
         menuJMenuBar.add(ordemDaPecaJMenu);
 
-        formaPagamentosJMenu.setText("Forma de pagamento");
+        formaPagamentosJMenu.setText("Forma de Pagamento");
         menuJMenuBar.add(formaPagamentosJMenu);
+
+        statusServicoJMenu.setText("Status do Serviço");
+        menuJMenuBar.add(statusServicoJMenu);
+
+        tecnicoJMenu.setText("Tecnico");
+        menuJMenuBar.add(tecnicoJMenu);
 
         setJMenuBar(menuJMenuBar);
 
@@ -128,5 +136,7 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu ordemDeServicoJMenu;
     private javax.swing.JPanel painelPrincipalJPanel;
     private javax.swing.JMenu pecaJMenu;
+    private javax.swing.JMenu statusServicoJMenu;
+    private javax.swing.JMenu tecnicoJMenu;
     // End of variables declaration//GEN-END:variables
 }
