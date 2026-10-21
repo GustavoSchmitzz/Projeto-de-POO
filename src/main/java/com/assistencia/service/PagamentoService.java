@@ -1,6 +1,6 @@
 package com.assistencia.service;
 
-import com.assistencia.entity.FormaPagamento;
+import com.assistencia.entity.FormaDePagamento;
 import com.assistencia.repository.PagamentoRepository;
 
 public class PagamentoService {
@@ -9,11 +9,11 @@ public class PagamentoService {
         this.pagamentoRepository = pagamentoRepository;
     }
 
-    public FormaPagamento buscaPorId(int id) {
+    public FormaDePagamento buscaPorId(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser menor ou igual a zero.");
         }
-        FormaPagamento pagamento = pagamentoRepository.buscaOID(id);
+        FormaDePagamento pagamento = pagamentoRepository.buscaOID(id);
         if (pagamento == null) {
             throw new RuntimeException("forma de pagamento nao encontrada.");
         }
