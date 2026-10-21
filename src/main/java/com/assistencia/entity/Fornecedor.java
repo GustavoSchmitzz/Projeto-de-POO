@@ -1,9 +1,7 @@
 package com.assistencia.entity;
 
-public class Fornecedor {
+public class Fornecedor extends Pessoa{
     private int id;
-    private String nome;
-    private String telefone;
 
     public Integer getId() {
         return id;
@@ -13,23 +11,4 @@ public class Fornecedor {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-    
-    
 }
-
-
