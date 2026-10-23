@@ -8,6 +8,7 @@ public class OrdemDeServico {
     private double valorServico;
     private Tecnico tecnico;
     private PecaComDefeito peca;
+    private OrdemPeca ordemPeca;
     private StatusServico statusServico;
     private Garantia garantia;
     private FormaDePagamento  pagamento;
@@ -75,6 +76,12 @@ public class OrdemDeServico {
     public void setPagamento(FormaDePagamento pagamento) {
         this.pagamento = pagamento;
     }
-    
-    
+
+    public OrdemPeca getOrdemPeca() {
+        return ordemPeca;
+    }
+
+    public void setOrdemPeca(OrdemPeca ordemPeca) {
+        this.ordemPeca = ordemPeca;
+    } 
 }
