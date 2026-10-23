@@ -7,7 +7,7 @@ import com.assistencia.entity.FormaDePagamento;
 import java.sql.*;
 import java.util.Properties;
 
-public class PagamentoRepository {
+public class FormaDePagamentoRepository {
     public FormaDePagamento cria(FormaDePagamento pagamento) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
