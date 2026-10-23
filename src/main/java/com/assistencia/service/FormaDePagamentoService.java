@@ -3,9 +3,9 @@ package com.assistencia.service;
 import com.assistencia.entity.FormaDePagamento;
 import com.assistencia.repository.FormaDePagamentoRepository;
 
-public class PagamentoService {
+public class FormaDePagamentoService {
     private final FormaDePagamentoRepository pagamentoRepository;
-    public PagamentoService(FormaDePagamentoRepository pagamentoRepository) {
+    public FormaDePagamentoService(FormaDePagamentoRepository pagamentoRepository) {
         this.pagamentoRepository = pagamentoRepository;
     }
 
