@@ -18,6 +18,13 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
     public TelaPrincipalJFrame() {
         initComponents();
     }
+    
+    public void mostrarTela(javax.swing.JPanel tela) {
+        painelPrincipalJPanel.removeAll();
+        painelPrincipalJPanel.add(tela);
+        painelPrincipalJPanel.revalidate();
+        painelPrincipalJPanel.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,57 +38,108 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         painelPrincipalJPanel = new javax.swing.JPanel();
         menuJMenuBar = new javax.swing.JMenuBar();
         clienteJMenu = new javax.swing.JMenu();
+        manipularClienteJMenuItem = new javax.swing.JMenuItem();
         fornecedorJMenu = new javax.swing.JMenu();
+        manipularFornecedorJMenuItem = new javax.swing.JMenuItem();
         garantiaJMenu = new javax.swing.JMenu();
+        manipularGarantiaMenuItem = new javax.swing.JMenuItem();
         entregaOrdemDeServicoJMenu = new javax.swing.JMenu();
-        ordemDeServicoJMenu = new javax.swing.JMenu();
+        manipularEntregaOrdemDeServicoJMenuItem = new javax.swing.JMenuItem();
+        manipularEntregaOrdemDeServicoJMenu = new javax.swing.JMenu();
+        manipularOrdensDeServicoMenuItem = new javax.swing.JMenuItem();
         pecaJMenu = new javax.swing.JMenu();
+        manipularPecaJMenuItem = new javax.swing.JMenuItem();
         ordemDaPecaJMenu = new javax.swing.JMenu();
+        manipularOrdemDaPecaJMenuItem = new javax.swing.JMenuItem();
         formaPagamentosJMenu = new javax.swing.JMenu();
+        manipularFormaDePagamentoJMenuItem = new javax.swing.JMenuItem();
         statusServicoJMenu = new javax.swing.JMenu();
+        manipularStatusServicoJMenuItem = new javax.swing.JMenuItem();
         tecnicoJMenu = new javax.swing.JMenu();
+        manipularTecnicoJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout painelPrincipalJPanelLayout = new javax.swing.GroupLayout(painelPrincipalJPanel);
-        painelPrincipalJPanel.setLayout(painelPrincipalJPanelLayout);
-        painelPrincipalJPanelLayout.setHorizontalGroup(
-            painelPrincipalJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1232, Short.MAX_VALUE)
-        );
-        painelPrincipalJPanelLayout.setVerticalGroup(
-            painelPrincipalJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 748, Short.MAX_VALUE)
-        );
+        painelPrincipalJPanel.setLayout(new javax.swing.BoxLayout(painelPrincipalJPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         clienteJMenu.setText("Cliente");
+
+        manipularClienteJMenuItem.setText("Manipular clientes");
+        manipularClienteJMenuItem.addActionListener(this::manipularClienteJMenuItemActionPerformed);
+        clienteJMenu.add(manipularClienteJMenuItem);
+
         menuJMenuBar.add(clienteJMenu);
 
         fornecedorJMenu.setText("Fornecedor");
+
+        manipularFornecedorJMenuItem.setText("Manipular fornecedores");
+        manipularFornecedorJMenuItem.addActionListener(this::manipularFornecedorJMenuItemActionPerformed);
+        fornecedorJMenu.add(manipularFornecedorJMenuItem);
+
         menuJMenuBar.add(fornecedorJMenu);
 
         garantiaJMenu.setText("Garantia");
+
+        manipularGarantiaMenuItem.setText("Manipular garantias");
+        manipularGarantiaMenuItem.addActionListener(this::manipularGarantiaMenuItemActionPerformed);
+        garantiaJMenu.add(manipularGarantiaMenuItem);
+
         menuJMenuBar.add(garantiaJMenu);
 
         entregaOrdemDeServicoJMenu.setText("EntregaOS");
+
+        manipularEntregaOrdemDeServicoJMenuItem.setText("Manipular entregas OS");
+        manipularEntregaOrdemDeServicoJMenuItem.addActionListener(this::manipularEntregaOrdemDeServicoJMenuItemActionPerformed);
+        entregaOrdemDeServicoJMenu.add(manipularEntregaOrdemDeServicoJMenuItem);
+
         menuJMenuBar.add(entregaOrdemDeServicoJMenu);
 
-        ordemDeServicoJMenu.setText("Ordem de Serviço");
-        menuJMenuBar.add(ordemDeServicoJMenu);
+        manipularEntregaOrdemDeServicoJMenu.setText("Ordem de Serviço");
+
+        manipularOrdensDeServicoMenuItem.setText("Manipular OS");
+        manipularOrdensDeServicoMenuItem.addActionListener(this::manipularOrdensDeServicoMenuItemActionPerformed);
+        manipularEntregaOrdemDeServicoJMenu.add(manipularOrdensDeServicoMenuItem);
+
+        menuJMenuBar.add(manipularEntregaOrdemDeServicoJMenu);
 
         pecaJMenu.setText("Peça");
+
+        manipularPecaJMenuItem.setText("Manipular peças");
+        manipularPecaJMenuItem.addActionListener(this::manipularPecaJMenuItemActionPerformed);
+        pecaJMenu.add(manipularPecaJMenuItem);
+
         menuJMenuBar.add(pecaJMenu);
 
         ordemDaPecaJMenu.setText("Ordem da Peça");
+
+        manipularOrdemDaPecaJMenuItem.setText("Manipular ordem das peças");
+        manipularOrdemDaPecaJMenuItem.addActionListener(this::manipularOrdemDaPecaJMenuItemActionPerformed);
+        ordemDaPecaJMenu.add(manipularOrdemDaPecaJMenuItem);
+
         menuJMenuBar.add(ordemDaPecaJMenu);
 
         formaPagamentosJMenu.setText("Forma de Pagamento");
+
+        manipularFormaDePagamentoJMenuItem.setText("Manipular pagamentos");
+        manipularFormaDePagamentoJMenuItem.addActionListener(this::manipularFormaDePagamentoJMenuItemActionPerformed);
+        formaPagamentosJMenu.add(manipularFormaDePagamentoJMenuItem);
+
         menuJMenuBar.add(formaPagamentosJMenu);
 
         statusServicoJMenu.setText("Status do Serviço");
+
+        manipularStatusServicoJMenuItem.setText("Manipular status dos serviços");
+        manipularStatusServicoJMenuItem.addActionListener(this::manipularStatusServicoJMenuItemActionPerformed);
+        statusServicoJMenu.add(manipularStatusServicoJMenuItem);
+
         menuJMenuBar.add(statusServicoJMenu);
 
         tecnicoJMenu.setText("Tecnico");
+
+        manipularTecnicoJMenuItem.setText("Manipular Tecnico");
+        manipularTecnicoJMenuItem.addActionListener(this::manipularTecnicoJMenuItemActionPerformed);
+        tecnicoJMenu.add(manipularTecnicoJMenuItem);
+
         menuJMenuBar.add(tecnicoJMenu);
 
         setJMenuBar(menuJMenuBar);
@@ -90,15 +148,75 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipalJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelPrincipalJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1093, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipalJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelPrincipalJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void manipularClienteJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularClienteJMenuItemActionPerformed
+        ClienteJPanel tela = new ClienteJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularClienteJMenuItemActionPerformed
+
+    private void manipularGarantiaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularGarantiaMenuItemActionPerformed
+        GarantiaJPanel tela = new GarantiaJPanel();
+       
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularGarantiaMenuItemActionPerformed
+
+    private void manipularPecaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularPecaJMenuItemActionPerformed
+        PecaJPanel tela = new PecaJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularPecaJMenuItemActionPerformed
+
+    private void manipularFornecedorJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularFornecedorJMenuItemActionPerformed
+        FornecedorJPanel tela = new FornecedorJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularFornecedorJMenuItemActionPerformed
+
+    private void manipularEntregaOrdemDeServicoJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularEntregaOrdemDeServicoJMenuItemActionPerformed
+        EntregaOrdemDeServicoJPanel tela = new EntregaOrdemDeServicoJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularEntregaOrdemDeServicoJMenuItemActionPerformed
+
+    private void manipularOrdensDeServicoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularOrdensDeServicoMenuItemActionPerformed
+        OrdemDeServicoJPanel tela = new OrdemDeServicoJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularOrdensDeServicoMenuItemActionPerformed
+
+    private void manipularOrdemDaPecaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularOrdemDaPecaJMenuItemActionPerformed
+        OrdemDaPecaJPanel tela = new OrdemDaPecaJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularOrdemDaPecaJMenuItemActionPerformed
+
+    private void manipularFormaDePagamentoJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularFormaDePagamentoJMenuItemActionPerformed
+        FormaDePagamentoJPanel tela = new FormaDePagamentoJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularFormaDePagamentoJMenuItemActionPerformed
+
+    private void manipularStatusServicoJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularStatusServicoJMenuItemActionPerformed
+        StatusServicoJPanel tela = new StatusServicoJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularStatusServicoJMenuItemActionPerformed
+
+    private void manipularTecnicoJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manipularTecnicoJMenuItemActionPerformed
+        TecnicoJPanel tela = new TecnicoJPanel();
+        
+        mostrarTela(tela);
+    }//GEN-LAST:event_manipularTecnicoJMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,9 +249,19 @@ public class TelaPrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu formaPagamentosJMenu;
     private javax.swing.JMenu fornecedorJMenu;
     private javax.swing.JMenu garantiaJMenu;
+    private javax.swing.JMenuItem manipularClienteJMenuItem;
+    private javax.swing.JMenu manipularEntregaOrdemDeServicoJMenu;
+    private javax.swing.JMenuItem manipularEntregaOrdemDeServicoJMenuItem;
+    private javax.swing.JMenuItem manipularFormaDePagamentoJMenuItem;
+    private javax.swing.JMenuItem manipularFornecedorJMenuItem;
+    private javax.swing.JMenuItem manipularGarantiaMenuItem;
+    private javax.swing.JMenuItem manipularOrdemDaPecaJMenuItem;
+    private javax.swing.JMenuItem manipularOrdensDeServicoMenuItem;
+    private javax.swing.JMenuItem manipularPecaJMenuItem;
+    private javax.swing.JMenuItem manipularStatusServicoJMenuItem;
+    private javax.swing.JMenuItem manipularTecnicoJMenuItem;
     private javax.swing.JMenuBar menuJMenuBar;
     private javax.swing.JMenu ordemDaPecaJMenu;
-    private javax.swing.JMenu ordemDeServicoJMenu;
     private javax.swing.JPanel painelPrincipalJPanel;
     private javax.swing.JMenu pecaJMenu;
     private javax.swing.JMenu statusServicoJMenu;

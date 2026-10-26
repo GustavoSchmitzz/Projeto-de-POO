@@ -8,51 +8,151 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularClienteJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular clientes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularClienteJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="fornecedorJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fornecedor"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularFornecedorJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular fornecedores"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularFornecedorJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="garantiaJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Garantia"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularGarantiaMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular garantias"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularGarantiaMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="entregaOrdemDeServicoJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="EntregaOS"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularEntregaOrdemDeServicoJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular entregas OS"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularEntregaOrdemDeServicoJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="ordemDeServicoJMenu">
+        <Menu class="javax.swing.JMenu" name="manipularEntregaOrdemDeServicoJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularOrdensDeServicoMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular OS"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularOrdensDeServicoMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="pecaJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pe&#xe7;a"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularPecaJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular pe&#xe7;as"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularPecaJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="ordemDaPecaJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ordem da Pe&#xe7;a"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularOrdemDaPecaJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular ordem das pe&#xe7;as"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularOrdemDaPecaJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="formaPagamentosJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Forma de Pagamento"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularFormaDePagamentoJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular pagamentos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularFormaDePagamentoJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="statusServicoJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Status do Servi&#xe7;o"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularStatusServicoJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular status dos servi&#xe7;os"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularStatusServicoJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="tecnicoJMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tecnico"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="manipularTecnicoJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manipular Tecnico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manipularTecnicoJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -80,30 +180,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="painelPrincipalJPanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="painelPrincipalJPanel" alignment="0" pref="1093" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="painelPrincipalJPanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="painelPrincipalJPanel" alignment="0" pref="756" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="painelPrincipalJPanel">
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1232" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="748" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
     </Container>
   </SubComponents>
 </Form>
