@@ -4,12 +4,13 @@ import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.OrdemDeServico;
 import com.assistencia.entity.OrdemPeca;
 import com.assistencia.entity.Peca;
+import com.assistencia.persistencia.repository.OrdemPecaRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class OrdemPecaRepository {
-    public OrdemPeca cria(OrdemPeca ordemPeca) {
+public class OrdemPecaRepositoryImpl implements OrdemPecaRepository{
+    public OrdemPeca criar(OrdemPeca ordemPeca) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -36,7 +37,7 @@ public class OrdemPecaRepository {
         }
         return null;
     }
-    public OrdemPeca buscaOID(int id) {
+    public OrdemPeca buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -70,7 +71,7 @@ public class OrdemPecaRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -91,7 +92,7 @@ public class OrdemPecaRepository {
         }
         return false;
     }
-    public boolean atualiza(OrdemPeca ordemPeca) {
+    public boolean atualizar(OrdemPeca ordemPeca) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

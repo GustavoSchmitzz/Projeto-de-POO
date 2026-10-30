@@ -2,14 +2,15 @@ package com.assistencia.persistencia.repository.impl;
 
 import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.*;
+import com.assistencia.persistencia.repository.OrdemDeServicoRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
 import static java.sql.Date.valueOf;
 
-public class OrdemDeServicoRepository {
-    public OrdemDeServico cria(OrdemDeServico ordemDeServico) {
+public class OrdemDeServicoRepositoryImpl implements OrdemDeServicoRepository{
+    public OrdemDeServico criar(OrdemDeServico ordemDeServico) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -41,7 +42,7 @@ public class OrdemDeServicoRepository {
         }
         return null;
     }
-    public OrdemDeServico buscaOID(int id) {
+    public OrdemDeServico buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -87,7 +88,7 @@ public class OrdemDeServicoRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -108,7 +109,7 @@ public class OrdemDeServicoRepository {
         }
         return false;
     }
-    public boolean atualiza(OrdemDeServico ordemDeServico) {
+    public boolean atualizar(OrdemDeServico ordemDeServico) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

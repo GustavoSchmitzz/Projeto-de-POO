@@ -3,12 +3,13 @@ package com.assistencia.persistencia.repository.impl;
 import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.Garantia;
 import com.assistencia.entity.OrdemDeServico;
+import com.assistencia.persistencia.repository.GarantiaRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class GarantiaRepository {
-    public Garantia cria(Garantia garantia) {
+public class GarantiaRepositoryImpl implements GarantiaRepository{
+    public Garantia criar(Garantia garantia) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -33,7 +34,7 @@ public class GarantiaRepository {
          }
          return null;
     }
-    public Garantia buscaOID(int id) {
+    public Garantia buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -59,7 +60,7 @@ public class GarantiaRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -79,7 +80,7 @@ public class GarantiaRepository {
         }
         return false;
     }
-    public boolean atualiza(Garantia garantia) {
+    public boolean atualizar(Garantia garantia) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

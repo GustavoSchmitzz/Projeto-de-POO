@@ -3,12 +3,13 @@ package com.assistencia.persistencia.repository.impl;
 import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.Fornecedor;
 import com.assistencia.entity.Peca;
+import com.assistencia.persistencia.repository.PecaRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class PecaRepository {
-    public Peca cria(Peca peca) {
+public class PecaRepositoryImpl implements PecaRepository{
+    public Peca criar(Peca peca) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -38,7 +39,7 @@ public class PecaRepository {
         }
         return null;
     }
-    public Peca buscaOID(int id) {
+    public Peca buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

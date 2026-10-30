@@ -2,13 +2,14 @@ package com.assistencia.persistencia.repository.impl;
 
 import com.assistencia.entity.Cliente;
 import com.assistencia.config.DatabaseConfig;
+import com.assistencia.persistencia.repository.ClienteRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
 
-public class ClienteRepository {
-    public Cliente cria(Cliente cliente) {
+public class ClienteRepositoryImpl implements ClienteRepository{
+    public Cliente criar(Cliente cliente) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -38,7 +39,7 @@ public class ClienteRepository {
             return null;
         }
     }
-    public Cliente buscarOID(Integer id) {
+    public Cliente buscar(Integer id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
 
         String url = credenciais.getProperty("db.url");
@@ -68,7 +69,7 @@ public class ClienteRepository {
         }
         return null;
     }
-    public boolean deleta(Integer id) {
+    public boolean deletar(Integer id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -90,7 +91,7 @@ public class ClienteRepository {
         }
         return false;
     }
-    public boolean atualiza(Cliente cliente) {
+    public boolean atualizar(Cliente cliente) {
         Properties credenciais = DatabaseConfig.getCredenciais();
 
         String url = credenciais.getProperty("db.url");

@@ -4,11 +4,12 @@ import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.Cliente;
 import com.assistencia.entity.OrdemDeServico;
 import com.assistencia.entity.PecaComDefeito;
+import com.assistencia.persistencia.repository.PecaComDefeitoRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class PecaComDefeitoRepository {
+public class PecaComDefeitoRepositoryImpl implements PecaComDefeitoRepository{
     public PecaComDefeito criar(PecaComDefeito pecaComDefeito) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
@@ -39,7 +40,7 @@ public class PecaComDefeitoRepository {
         }
         return null;
     }
-    public PecaComDefeito buscaOID(int id) {
+    public PecaComDefeito buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -72,7 +73,7 @@ public class PecaComDefeitoRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -93,7 +94,7 @@ public class PecaComDefeitoRepository {
         }
         return false;
     }
-    public boolean atualiza(PecaComDefeito pecaComDefeito) {
+    public boolean atualizar(PecaComDefeito pecaComDefeito) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

@@ -4,14 +4,15 @@ import com.assistencia.config.DatabaseConfig;
 
 import com.assistencia.entity.EntregaOrdemDeServico;
 import com.assistencia.entity.OrdemDeServico;
+import com.assistencia.persistencia.repository.EntregaOrdemDeServicoRepository;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Properties;
 import static java.sql.Date.valueOf;
 
-public class EntregaOrdemDeServicoRepository {
-    public EntregaOrdemDeServico cria(EntregaOrdemDeServico entregaOS) {
+public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServicoRepository{
+    public EntregaOrdemDeServico criar(EntregaOrdemDeServico entregaOS) {
         Properties credenciais = DatabaseConfig.getCredenciais();
 
         String url = credenciais.getProperty("db.url");
@@ -39,7 +40,7 @@ public class EntregaOrdemDeServicoRepository {
         }
         return null;
     }
-    public EntregaOrdemDeServico buscaOID(int id) {
+    public EntregaOrdemDeServico buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -72,7 +73,7 @@ public class EntregaOrdemDeServicoRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -93,7 +94,7 @@ public class EntregaOrdemDeServicoRepository {
         }
         return false;
     }
-    public boolean atualiza(EntregaOrdemDeServico entregaOS) {
+    public boolean atualizar(EntregaOrdemDeServico entregaOS) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

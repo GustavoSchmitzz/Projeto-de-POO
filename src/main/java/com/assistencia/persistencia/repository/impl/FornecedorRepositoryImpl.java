@@ -2,12 +2,13 @@ package com.assistencia.persistencia.repository.impl;
 
 import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.Fornecedor;
+import com.assistencia.persistencia.repository.FornecedorRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class FornecedorRepository {
-    public Fornecedor cria(Fornecedor fornecedor) {
+public class FornecedorRepositoryImpl implements FornecedorRepository {
+    public Fornecedor criar(Fornecedor fornecedor) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -33,7 +34,7 @@ public class FornecedorRepository {
         }
         return null;
     }
-    public Fornecedor buscaOID(int id) {
+    public Fornecedor buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -59,7 +60,7 @@ public class FornecedorRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -80,7 +81,7 @@ public class FornecedorRepository {
         }
         return false;
     }
-    public boolean atualiza(Fornecedor fornecedor) {
+    public boolean atualizar(Fornecedor fornecedor) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");

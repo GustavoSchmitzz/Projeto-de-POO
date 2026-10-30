@@ -1,104 +1,104 @@
 package com.assistencia.persistencia.repository.impl;
 
 import com.assistencia.config.DatabaseConfig;
-import com.assistencia.entity.StatusServico;
+import com.assistencia.entity.OrdemDeServico;
+import com.assistencia.entity.FormaDePagamento;
+import com.assistencia.persistencia.repository.FormaDePagamentoRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class StatusServicoRepository {
-    public StatusServico cria(StatusServico statusServico) {
+public class FormaDePagamentoRepositoryImpl implements FormaDePagamentoRepository{
+    public FormaDePagamento criar(FormaDePagamento pagamento) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
+        String sql = "INSERT INTO pagamentos (forma_pagamento) VALUES (?)";
 
-        String sql = "INSERT INTO StatusServico (StatusServico) VALUES (?)";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
              PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            comando.setString(1, statusServico.getStatus());
+            comando.setString(1, pagamento.getFormaPagamento());
 
             comando.executeUpdate();
 
-            try(ResultSet chaveGerada = comando.getGeneratedKeys()) {
-                if(chaveGerada.next()) {
-                    statusServico.setId(chaveGerada.getInt(1));
+            try (ResultSet resultado = comando.getGeneratedKeys()) {
+                if (resultado.next()) {
+                    pagamento.setId(resultado.getInt("id"));
                 }
             }
-            return  statusServico;
+            return  pagamento;
         }catch (SQLException e) {
-            System.err.println("Erro ao criar StatusServico: " + e.getMessage());
+            System.err.println("Erro ao criar pagamento: " + e.getMessage());
         }
         return null;
     }
-    public StatusServico buscaOID(int id) {
+    public FormaDePagamento buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
+        String sql = "SELECT * FROM pagamentos WHERE id = ?";
 
-        String sql = "SELECT * FROM StatusServico WHERE id = ?";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
-            PreparedStatement comando = conexao.prepareStatement(sql)){
+            PreparedStatement comando = conexao.prepareStatement(sql)) {
 
             comando.setInt(1, id);
 
             try (ResultSet resultado = comando.executeQuery()) {
-                if (resultado.next()){
-                    StatusServico statusServico = new StatusServico();
+                if (resultado.next()) {
+                    FormaDePagamento pagamento = new FormaDePagamento();
+                    pagamento.setId(id);
+                    pagamento.setFormaPagamento(resultado.getString("forma_pagamento"));
 
-                    statusServico.setStatus(resultado.getString("status"));
-                    statusServico.setId(id);
-
-                    return statusServico;
+                    return pagamento;
                 }
             }
         }catch (SQLException e) {
-            System.err.println("Erro ao buscar StatusServico: " + e.getMessage());
+            System.err.println("Erro ao buscar pagamento: " + e.getMessage());
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
+        String sql = "DELETE FROM pagamentos WHERE id = ?";
 
-        String sql = "DELETE FROM StatusServico WHERE id = ?";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
-            PreparedStatement comando = conexao.prepareStatement(sql)) {
+             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
             comando.setInt(1, id);
 
-            int linhasDeletadas = comando.executeUpdate();
+            int resultado = comando.executeUpdate();
 
-            return linhasDeletadas > 0;
+            return resultado > 0;
 
-        }catch (SQLException e) {
-            System.err.println("Erro ao deletar StatusServico: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar pagamento: " + e.getMessage());
         }
         return false;
     }
-    public boolean atualiza(StatusServico statusServico) {
+    public boolean atualizar(FormaDePagamento pagamento) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
+        String sql = "UPDATE pagamentos SET forma_pagamento = ? WHERE id = ?";
 
-        String sql = "UPDATE StatusServico SET Status = ? WHERE id = ?";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
-            comando.setString(1, statusServico.getStatus());
-            comando.setInt(2, statusServico.getId());
+            comando.setString(1, pagamento.getFormaPagamento());
+            comando.setInt(2, pagamento.getId());
 
-            int linhasAtualizadas = comando.executeUpdate();
+            int resultado = comando.executeUpdate();
 
-            return linhasAtualizadas > 0;
-
-        }catch (SQLException e) {
-            System.err.println("Erro ao atualizar StatusServico: " + e.getMessage());
+            return resultado > 0;
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar pagamento: " + e.getMessage());
         }
         return false;
     }

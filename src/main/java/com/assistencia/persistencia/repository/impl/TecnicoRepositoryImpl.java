@@ -2,12 +2,13 @@ package com.assistencia.persistencia.repository.impl;
 
 import com.assistencia.config.DatabaseConfig;
 import com.assistencia.entity.Tecnico;
+import com.assistencia.persistencia.repository.TecnicoRepository;
 
 import java.sql.*;
 import java.util.Properties;
 
-public class TecnicoRepository {
-    public Tecnico cria(Tecnico tecnico) {
+public class TecnicoRepositoryImpl implements TecnicoRepository{
+    public Tecnico criar(Tecnico tecnico) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -35,7 +36,7 @@ public class TecnicoRepository {
         }
         return null;
     }
-    public Tecnico buscaOID(int id) {
+    public Tecnico buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -67,7 +68,7 @@ public class TecnicoRepository {
         }
         return null;
     }
-    public boolean deleta(int id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
@@ -89,7 +90,7 @@ public class TecnicoRepository {
         }
         return false;
     }
-    public boolean atualiza(Tecnico tecnico) {
+    public boolean atualizar(Tecnico tecnico) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
