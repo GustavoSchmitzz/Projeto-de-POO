@@ -1,11 +1,11 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.Tecnico;
-import com.assistencia.repository.TecnicoRepository;
+import com.assistencia.persistencia.repository.impl.TecnicoRepositoryImpl;
 
 public class TecnicoService {
-    private final TecnicoRepository tecnicoRepository;
-    public TecnicoService(TecnicoRepository tecnicoRepository) {
+    private final TecnicoRepositoryImpl tecnicoRepository;
+    public TecnicoService(TecnicoRepositoryImpl tecnicoRepository) {
         this.tecnicoRepository = tecnicoRepository;
     }
 
@@ -13,7 +13,7 @@ public class TecnicoService {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser menor ou igual a zero.");
         }
-        Tecnico tecnico = tecnicoRepository.buscaOID(id);
+        Tecnico tecnico = tecnicoRepository.buscar(id);
         if (tecnico == null) {
             throw new IllegalArgumentException("Tecnico nao encontrado.");
         }
@@ -36,24 +36,24 @@ public class TecnicoService {
         tecnico.setNome(tecnico.getNome().trim().toLowerCase());
         tecnico.setEspecialidade(tecnico.getEspecialidade().trim().toLowerCase());
 
-        return tecnicoRepository.cria(tecnico);
+        return tecnicoRepository.criar(tecnico);
     }
     public boolean deletaTecnico(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser menor ou igual a zero.");
         }
-        Tecnico tecnico = tecnicoRepository.buscaOID(id);
+        Tecnico tecnico = tecnicoRepository.buscar(id);
         if (tecnico == null) {
             throw new IllegalArgumentException("Tecnico nao encontrado.");
         }
 
-        return tecnicoRepository.deleta(id);
+        return tecnicoRepository.deletar(id);
     }
     public boolean atualizaTecnico(Tecnico tecnico) {
         if (tecnico == null) {
             throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
         }
-        if (tecnicoRepository.buscaOID(tecnico.getId()) == null) {
+        if (tecnicoRepository.buscar(tecnico.getId()) == null) {
             throw new RuntimeException("Tecnico nao encontrado.");
         }
         if (tecnico.getNome() == null || tecnico.getNome().trim().isEmpty()) {
@@ -70,6 +70,6 @@ public class TecnicoService {
         tecnico.setEspecialidade(tecnico.getEspecialidade().trim().toLowerCase());
         tecnico.setTelefone(tecnico.getTelefone().trim());
 
-        return tecnicoRepository.atualiza(tecnico);
+        return tecnicoRepository.atualizar(tecnico);
     }
 }

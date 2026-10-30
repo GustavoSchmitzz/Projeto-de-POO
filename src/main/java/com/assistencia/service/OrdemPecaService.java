@@ -1,11 +1,11 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.OrdemPeca;
-import com.assistencia.repository.OrdemPecaRepository;
+import com.assistencia.persistencia.repository.impl.OrdemPecaRepositoryImpl;
 
 public class OrdemPecaService {
-    private final OrdemPecaRepository ordemPecaRepository;
-    public OrdemPecaService(OrdemPecaRepository ordemPecaRepository) {
+    private final OrdemPecaRepositoryImpl ordemPecaRepository;
+    public OrdemPecaService(OrdemPecaRepositoryImpl ordemPecaRepository) {
         this.ordemPecaRepository = ordemPecaRepository;
     }
 
@@ -23,6 +23,6 @@ public class OrdemPecaService {
             throw new IllegalArgumentException("Peca nao pode ser nulo.");
         }
 
-         return ordemPecaRepository.cria(ordemPeca);
+         return ordemPecaRepository.criar(ordemPeca);
     }
 }

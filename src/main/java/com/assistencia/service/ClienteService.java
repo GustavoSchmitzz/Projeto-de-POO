@@ -1,12 +1,12 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.Cliente;
-import com.assistencia.repository.ClienteRepository;
+import com.assistencia.persistencia.repository.impl.ClienteRepositoryImpl;
 
 public class ClienteService {
-    private final ClienteRepository clienteRepository;
+    private final ClienteRepositoryImpl clienteRepository;
 
-    public ClienteService(ClienteRepository clienteRepository) {
+    public ClienteService(ClienteRepositoryImpl clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
@@ -30,13 +30,13 @@ public class ClienteService {
         cliente.setEmail(cliente.getEmail().trim().toLowerCase());
         cliente.setTelefone(cliente.getTelefone().trim().toLowerCase());
 
-        return clienteRepository.cria(cliente);
+        return clienteRepository.criar(cliente);
     }
     public Cliente buscaPorId(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("id nao pode ser menor ou igual a zero.");
         }
-        Cliente cliente = clienteRepository.buscarOID(id);
+        Cliente cliente = clienteRepository.buscar(id);
         if (cliente == null) {
             throw new IllegalArgumentException("cliente nao encontrado.");
         }
@@ -46,11 +46,11 @@ public class ClienteService {
         if (id <= 0) {
             throw new IllegalArgumentException("id nao pode ser menor ou igual a zero.");
         }
-        Cliente cliente = clienteRepository.buscarOID(id);
+        Cliente cliente = clienteRepository.buscar(id);
         if (cliente == null) {
             throw new IllegalArgumentException("cliente nao encontrado.");
         }
-        return clienteRepository.deleta(id);
+        return clienteRepository.deletar(id);
     }
     public boolean atualizar(Cliente cliente) {
         if (cliente == null) {
@@ -59,7 +59,7 @@ public class ClienteService {
         if (cliente.getId() == null) {
             throw new IllegalArgumentException("id nao pode ser nulo.");
         }
-        if (clienteRepository.buscarOID(cliente.getId()) == null) {
+        if (clienteRepository.buscar(cliente.getId()) == null) {
             throw new IllegalArgumentException("O cliente nao existe no banco de dados.");
         }
         if(cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
@@ -77,6 +77,6 @@ public class ClienteService {
         cliente.setEmail(cliente.getEmail().trim().toLowerCase());
         cliente.setTelefone(cliente.getTelefone().trim());
 
-        return clienteRepository.atualiza(cliente);
+        return clienteRepository.atualizar(cliente);
     }
 }

@@ -1,14 +1,14 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.PecaComDefeito;
-import com.assistencia.repository.PecaComDefeitoRepository;
+import com.assistencia.persistencia.repository.impl.PecaComDefeitoRepositoryImpl;
 
 import java.util.concurrent.ExecutionException;
 
 public class PecaComDefeitoService {
 
-    private final PecaComDefeitoRepository pecaComDefeitoRepository;
-    public PecaComDefeitoService(PecaComDefeitoRepository pecaComDefeitoRepository) {
+    private final PecaComDefeitoRepositoryImpl pecaComDefeitoRepository;
+    public PecaComDefeitoService(PecaComDefeitoRepositoryImpl pecaComDefeitoRepository) {
         this.pecaComDefeitoRepository = pecaComDefeitoRepository;
     }
 
@@ -16,7 +16,7 @@ public class PecaComDefeitoService {
         if (id <= 0) {
             throw new IllegalArgumentException("O Id nao pode ser menor ou igual a zero.");
         }
-        PecaComDefeito pecaComDefeito = pecaComDefeitoRepository.buscaOID(id);
+        PecaComDefeito pecaComDefeito = pecaComDefeitoRepository.buscar(id);
         if (pecaComDefeito == null) {
             throw new IllegalArgumentException("Peca com defeito nao encontrada no banco de dados.");
         }
@@ -57,7 +57,7 @@ public class PecaComDefeitoService {
         if (pecaComDefeito.getId() == null) {
             throw new IllegalArgumentException("O Id nao pode ser nulo.");
         }
-        if (pecaComDefeitoRepository.buscaOID(pecaComDefeito.getId()) == null) {
+        if (pecaComDefeitoRepository.buscar(pecaComDefeito.getId()) == null) {
             throw new RuntimeException("O produto com defeito nao existe no banco de dados.");
         }
         if (pecaComDefeito.getTipoPeca() == null || pecaComDefeito.getTipoPeca().trim().isEmpty()) {
@@ -81,6 +81,6 @@ public class PecaComDefeitoService {
         pecaComDefeito.setModelo(pecaComDefeito.getModelo().trim().toLowerCase());
         pecaComDefeito.setDescricao(pecaComDefeito.getDescricao().trim().toLowerCase());
 
-        return pecaComDefeitoRepository.atualiza(pecaComDefeito);
+        return pecaComDefeitoRepository.atualizar(pecaComDefeito);
     }
 }

@@ -1,11 +1,11 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.FormaDePagamento;
-import com.assistencia.repository.FormaDePagamentoRepository;
+import com.assistencia.persistencia.repository.impl.FormaDePagamentoRepositoryImpl;
 
 public class FormaDePagamentoService {
-    private final FormaDePagamentoRepository pagamentoRepository;
-    public FormaDePagamentoService(FormaDePagamentoRepository pagamentoRepository) {
+    private final FormaDePagamentoRepositoryImpl pagamentoRepository;
+    public FormaDePagamentoService(FormaDePagamentoRepositoryImpl pagamentoRepository) {
         this.pagamentoRepository = pagamentoRepository;
     }
 
@@ -13,7 +13,7 @@ public class FormaDePagamentoService {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser menor ou igual a zero.");
         }
-        FormaDePagamento pagamento = pagamentoRepository.buscaOID(id);
+        FormaDePagamento pagamento = pagamentoRepository.buscar(id);
         if (pagamento == null) {
             throw new RuntimeException("forma de pagamento nao encontrada.");
         }

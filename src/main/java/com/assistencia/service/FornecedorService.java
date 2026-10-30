@@ -1,11 +1,11 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.Fornecedor;
-import com.assistencia.repository.FornecedorRepository;
+import com.assistencia.persistencia.repository.impl.FornecedorRepositoryImpl;
 
 public class FornecedorService {
-    private FornecedorRepository fornecedorRepository;
-    public FornecedorService(FornecedorRepository fornecedorRepository) {
+    private FornecedorRepositoryImpl fornecedorRepository;
+    public FornecedorService(FornecedorRepositoryImpl fornecedorRepository) {
         this.fornecedorRepository = fornecedorRepository;
     }
 
@@ -24,13 +24,13 @@ public class FornecedorService {
         fornecedor.setNome(fornecedor.getNome().trim().toLowerCase());
         fornecedor.setTelefone(fornecedor.getTelefone().trim().toLowerCase());
 
-        return fornecedorRepository.cria(fornecedor);
+        return fornecedorRepository.criar(fornecedor);
     }
     public Fornecedor buscaPorId(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("id nao pode ser menor ou igual a zero.");
         }
-        Fornecedor fornecedor = fornecedorRepository.buscaOID(id);
+        Fornecedor fornecedor = fornecedorRepository.buscar(id);
         if (fornecedor == null) {
             throw new IllegalArgumentException("cliente nao encontrado.");
         }
@@ -40,11 +40,11 @@ public class FornecedorService {
         if (id <= 0) {
             throw new IllegalArgumentException("id nao pode ser menor ou igual a zero.");
         }
-        Fornecedor fornecedor = fornecedorRepository.buscaOID(id);
+        Fornecedor fornecedor = fornecedorRepository.buscar(id);
         if (fornecedor == null) {
             throw new IllegalArgumentException("cliente nao encontrado.");
         }
-        return fornecedorRepository.deleta(id);
+        return fornecedorRepository.deletar(id);
     }
     public boolean atualizar(Fornecedor fornecedor) {
         if (fornecedor == null) {
@@ -53,7 +53,7 @@ public class FornecedorService {
         if (fornecedor.getId() == null) {
             throw new IllegalArgumentException("id nao pode ser nulo.");
         }
-        if (fornecedorRepository.buscaOID(fornecedor.getId()) == null) {
+        if (fornecedorRepository.buscar(fornecedor.getId()) == null) {
             throw new IllegalArgumentException("O fornecedor nao existe no banco de dados.");
         }
         if(fornecedor.getNome() == null || fornecedor.getNome().trim().isEmpty()) {
@@ -66,7 +66,7 @@ public class FornecedorService {
         fornecedor.setNome(fornecedor.getNome().trim().toLowerCase());
         fornecedor.setTelefone(fornecedor.getTelefone().trim());
 
-        return fornecedorRepository.atualiza(fornecedor);
+        return fornecedorRepository.atualizar(fornecedor);
     }
 }
 

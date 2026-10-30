@@ -2,18 +2,18 @@ package com.assistencia.service;
 
 import com.assistencia.entity.EntregaOrdemDeServico;
 import com.assistencia.entity.OrdemDeServico;
-import com.assistencia.repository.EntregaOrdemDeServicoRepository;
-import com.assistencia.repository.OrdemDeServicoRepository;
+import com.assistencia.persistencia.repository.impl.EntregaOrdemDeServicoRepositoryImpl;
+import com.assistencia.persistencia.repository.impl.OrdemDeServicoRepositoryImpl;
 
 import java.time.LocalDate;
 
 
 public class EntregaOrdemDeServicoService {
-    private OrdemDeServicoRepository ordemDeServicoRepository;
-    private EntregaOrdemDeServicoRepository entregaServicoRepository;
+    private OrdemDeServicoRepositoryImpl ordemDeServicoRepository;
+    private EntregaOrdemDeServicoRepositoryImpl entregaServicoRepository;
 
-    public EntregaOrdemDeServicoService(OrdemDeServicoRepository ordemDeServicoRepository,
-                                        EntregaOrdemDeServicoRepository entregaServicoRepository) {
+    public EntregaOrdemDeServicoService(OrdemDeServicoRepositoryImpl ordemDeServicoRepository,
+                                        EntregaOrdemDeServicoRepositoryImpl entregaServicoRepository) {
         this.ordemDeServicoRepository = ordemDeServicoRepository;
         this.entregaServicoRepository = entregaServicoRepository;
     }
@@ -28,7 +28,7 @@ public class EntregaOrdemDeServicoService {
         if (idOS <= 0) {
             throw new IllegalArgumentException("O id Da ordem de serviço nao pode ser negativo.");
         }
-        OrdemDeServico os = ordemDeServicoRepository.buscaOID(idOS);
+        OrdemDeServico os = ordemDeServicoRepository.buscar(idOS);
         if (os == null) {
             throw new RuntimeException("Ordem de servico nao existente.");
         }
@@ -40,7 +40,7 @@ public class EntregaOrdemDeServicoService {
         }
         os.getStatusServico().setId(4);
 
-        boolean atualizou = ordemDeServicoRepository.atualiza(os);
+        boolean atualizou = ordemDeServicoRepository.atualizar(os);
         if (!atualizou) {
             throw new RuntimeException("Nao foi possivel atualizar a ordem de servico.");
         }
@@ -49,19 +49,19 @@ public class EntregaOrdemDeServicoService {
         entregaServico.setDataEntrega(LocalDate.now());
         entregaServico.setOrdemDeServico(os);
 
-        return entregaServicoRepository.cria(entregaServico);
+        return entregaServicoRepository.criar(entregaServico);
     }
     public boolean reverteAEntrega(int idEntrega) {
         if (idEntrega <= 0) {
             throw new IllegalArgumentException("O id nao pode ser negativo.");
         }
-        EntregaOrdemDeServico entrega = entregaServicoRepository.buscaOID(idEntrega);
+        EntregaOrdemDeServico entrega = entregaServicoRepository.buscar(idEntrega);
         if (entrega == null) {
             throw new IllegalArgumentException("O registro de entrega não foi encontrado.");
         }
 
         int idOS = entrega.getOrdemDeServico().getId();
-        OrdemDeServico os = ordemDeServicoRepository.buscaOID(idOS);
+        OrdemDeServico os = ordemDeServicoRepository.buscar(idOS);
 
         if (os == null) {
             throw new RuntimeException("Ordem de servico nao existente.");
@@ -72,11 +72,11 @@ public class EntregaOrdemDeServicoService {
 
         os.getStatusServico().setId(3);
 
-        boolean atualizou = ordemDeServicoRepository.atualiza(os);
+        boolean atualizou = ordemDeServicoRepository.atualizar(os);
         if (!atualizou) {
             throw new RuntimeException("Nao foi possivel reverter a ordem de servico.");
         }
 
-        return entregaServicoRepository.deleta(idEntrega);
+        return entregaServicoRepository.deletar(idEntrega);
     }
 }

@@ -1,11 +1,11 @@
 package com.assistencia.service;
 
 import com.assistencia.entity.Peca;
-import com.assistencia.repository.PecaRepository;
+import com.assistencia.persistencia.repository.impl.PecaRepositoryImpl;
 
 public class PecaService {
-    private PecaRepository pecaRepository;
-    public PecaService(PecaRepository pecaRepository) {
+    private PecaRepositoryImpl pecaRepository;
+    public PecaService(PecaRepositoryImpl pecaRepository) {
         this.pecaRepository = pecaRepository;
     }
 
@@ -13,7 +13,7 @@ public class PecaService {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser igual ou menor que zero");
         }
-        Peca peca = pecaRepository.buscaOID(id);
+        Peca peca = pecaRepository.buscar(id);
         if (peca == null) {
             throw new IllegalArgumentException("Peca nao encontrada");
         }
@@ -23,7 +23,7 @@ public class PecaService {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser igual ou menor que zero");
         }
-        Peca peca = pecaRepository.buscaOID(id);
+        Peca peca = pecaRepository.buscar(id);
         if (peca.getEstoque() > 0) {
             throw new IllegalArgumentException("Nao é possivel deletar uma peça que tem no estoque");
         }
@@ -36,7 +36,7 @@ public class PecaService {
         if (id <= 0 || quant <= 0) {
             throw new IllegalArgumentException("Id e quantidade nao pode ser igual ou menor que zero");
         }
-        Peca peca = pecaRepository.buscaOID(id);
+        Peca peca = pecaRepository.buscar(id);
         if (peca == null) {
             throw new IllegalArgumentException("Peca nao encontrada");
         }
