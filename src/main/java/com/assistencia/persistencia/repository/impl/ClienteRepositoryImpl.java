@@ -39,7 +39,7 @@ public class ClienteRepositoryImpl implements ClienteRepository{
             return null;
         }
     }
-    public Cliente buscar(Integer id) {
+    public Cliente buscar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
 
         String url = credenciais.getProperty("db.url");
@@ -69,7 +69,7 @@ public class ClienteRepositoryImpl implements ClienteRepository{
         }
         return null;
     }
-    public boolean deletar(Integer id) {
+    public boolean deletar(int id) {
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
