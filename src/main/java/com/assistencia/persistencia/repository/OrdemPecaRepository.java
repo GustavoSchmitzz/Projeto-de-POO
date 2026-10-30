@@ -12,9 +12,9 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface OrdemPecaRepository {
-    public OrdemPeca criar();
-    public boolean atualizar();
-    public OrdemPeca buscar();
-    public boolean deletar();
+    public OrdemPeca criar(OrdemPeca ordem);
+    public boolean atualizar(OrdemPeca ordem);
+    public OrdemPeca buscar(int id);
+    public boolean deletar(int id);
     public List<OrdemPeca> buscarTodos();
 }

@@ -12,9 +12,9 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface ClienteRepository {
-    public Cliente criar();
-    public boolean atualizar();
-    public Cliente buscar();
-    public boolean deletar();
+    public Cliente criar(Cliente cliente);
+    public boolean atualizar(Cliente cliente);
+    public Cliente buscar(int id);
+    public boolean deletar(int id);
     public List<Cliente> buscarTodos();
 }

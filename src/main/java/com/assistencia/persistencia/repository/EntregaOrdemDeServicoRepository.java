@@ -12,10 +12,10 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface EntregaOrdemDeServicoRepository {
-    public EntregaOrdemDeServico criar();
-    public boolean atualizar();
-    public EntregaOrdemDeServico buscar();
-    public boolean deletar();
+    public EntregaOrdemDeServico criar(EntregaOrdemDeServico entrega);
+    public boolean atualizar(EntregaOrdemDeServico entrega);
+    public EntregaOrdemDeServico buscar(int id);
+    public boolean deletar(int id);
     public List<EntregaOrdemDeServico> buscarTodos();
     
 }

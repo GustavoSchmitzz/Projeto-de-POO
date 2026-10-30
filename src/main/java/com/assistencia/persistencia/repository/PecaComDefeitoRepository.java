@@ -12,9 +12,9 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface PecaComDefeitoRepository {
-    public PecaComDefeito criar();
-    public boolean atualizar();
-    public PecaComDefeito buscar();
-    public boolean deletar();
+    public PecaComDefeito criar(PecaComDefeito peca);
+    public boolean atualizar(PecaComDefeito peca);
+    public PecaComDefeito buscar(int id);
+    public boolean deletar(int id);
     public List<PecaComDefeito> buscarTodos();
 }

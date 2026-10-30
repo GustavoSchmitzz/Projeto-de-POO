@@ -12,9 +12,9 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface OrdemDeServicoRepository {
-    public OrdemDeServico criar();
-    public boolean atualizar();
-    public OrdemDeServico buscar();
-    public boolean deletar();
+    public OrdemDeServico criar(OrdemDeServico os);
+    public boolean atualizar(OrdemDeServico os);
+    public OrdemDeServico buscar(int id);
+    public boolean deletar(int id);
     public List<OrdemDeServico> buscarTodos();
 }

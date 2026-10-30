@@ -12,9 +12,9 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface TecnicoRepository {
-    public Tecnico criar();
-    public boolean atualizar();
-    public Tecnico buscar();
-    public boolean deletar();
+    public Tecnico criar(Tecnico tecnico);
+    public boolean atualizar(Tecnico tecnico);
+    public Tecnico buscar(int id);
+    public boolean deletar(int id);
     public List<Tecnico> buscarTodos();
 }

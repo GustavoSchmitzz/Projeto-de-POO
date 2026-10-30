@@ -12,9 +12,9 @@ import java.util.List;
  * @author gustavoaes
  */
 public interface FornecedorRepository {
-    public Fornecedor criar();
-    public boolean atualizar();
-    public Fornecedor buscar();
-    public boolean deletar();
+    public Fornecedor criar(Fornecedor fornecedor);
+    public boolean atualizar(Fornecedor fornecedor);
+    public Fornecedor buscar(int id);
+    public boolean deletar(int id);
     public List<Fornecedor> buscarTodos();
 }
