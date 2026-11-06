@@ -8,6 +8,8 @@ import com.assistencia.persistencia.repository.EntregaOrdemDeServicoRepository;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import static java.sql.Date.valueOf;
 
@@ -116,5 +118,37 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
             System.err.println("Erro ao salvar a entrega: " + e.getMessage());
         }
         return false;
+    }
+    public List<EntregaOrdemDeServico> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.password");
+
+        List<EntregaOrdemDeServico> entregas = new ArrayList<>();
+        String sql = "SELECT * FROM entrega_ordens_de_servico";
+
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                EntregaOrdemDeServico entregaOS = new EntregaOrdemDeServico();
+                entregaOS.setId(resultado.getInt("id"));
+                Date dataEntrega = resultado.getDate("data_entrega");
+                if (dataEntrega != null) {
+                    entregaOS.setDataEntrega(dataEntrega.toLocalDate());
+                }
+
+                OrdemDeServico ordemDeServico = new OrdemDeServico();
+                ordemDeServico.setId(resultado.getInt("id_ordem_servico"));
+                entregaOS.setOrdemDeServico(ordemDeServico);
+
+                entregas.add(entregaOS);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todas as entregas: " + e.getMessage());
+        }
+        return entregas;
     }
 }

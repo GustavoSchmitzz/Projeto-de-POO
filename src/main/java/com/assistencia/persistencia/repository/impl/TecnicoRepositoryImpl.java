@@ -5,6 +5,8 @@ import com.assistencia.entity.Tecnico;
 import com.assistencia.persistencia.repository.TecnicoRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class TecnicoRepositoryImpl implements TecnicoRepository{
@@ -114,5 +116,33 @@ public class TecnicoRepositoryImpl implements TecnicoRepository{
             System.err.println("Erro ao atualizar tecnico: " + e.getMessage());
         }
         return false;
+    }
+    public List<Tecnico> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+
+        List<Tecnico> tecnicos = new ArrayList<>();
+        String sql = "SELECT * FROM tecnicos";
+
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                Tecnico tecnico = new Tecnico();
+
+                tecnico.setId(resultado.getInt("id"));
+                tecnico.setNome(resultado.getString("nome"));
+                tecnico.setTelefone(resultado.getString("telefone"));
+                tecnico.setEspecialidade(resultado.getString("especialidade"));
+
+                tecnicos.add(tecnico);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todos os tecnicos: " + e.getMessage());
+        }
+        return tecnicos;
     }
 }

@@ -5,6 +5,8 @@ import com.assistencia.entity.Fornecedor;
 import com.assistencia.persistencia.repository.FornecedorRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class FornecedorRepositoryImpl implements FornecedorRepository {
@@ -103,5 +105,30 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
             System.err.println("Erro ao atualizar Fornecedor: " + e.getMessage());
         }
         return false;
+    }
+    public List<Fornecedor> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+
+        List<Fornecedor> fornecedores = new ArrayList<>();
+        String sql = "SELECT * FROM fornecedor";
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setId(resultado.getInt("id"));
+                fornecedor.setNome(resultado.getString("nome"));
+                fornecedor.setTelefone(resultado.getString("telefone"));
+
+                fornecedores.add(fornecedor);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todos os fornecedores: " + e.getMessage());
+        }
+        return fornecedores;
     }
 }

@@ -5,6 +5,8 @@ import com.assistencia.entity.*;
 import com.assistencia.persistencia.repository.OrdemDeServicoRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static java.sql.Date.valueOf;
@@ -137,5 +139,52 @@ public class OrdemDeServicoRepositoryImpl implements OrdemDeServicoRepository{
             System.err.println("Erro ao atualizar ordem de servico: " + e.getMessage());
         }
         return false;
+    }
+    public List<OrdemDeServico> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+        String sql = "SELECT * FROM ordens_de_servico";
+
+        List<OrdemDeServico> ordens = new ArrayList<>();
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                OrdemDeServico os = new OrdemDeServico();
+                os.setId(resultado.getInt("id"));
+                Date dataInicio = resultado.getDate("data_inicio");
+                if (dataInicio != null) {
+                    os.setDataInicio(dataInicio.toLocalDate());
+                }
+
+                Tecnico tecnico = new Tecnico();
+                tecnico.setId(resultado.getInt("id_tecnico"));
+                os.setTecnico(tecnico);
+
+                PecaComDefeito peca = new PecaComDefeito();
+                peca.setId(resultado.getInt("id_peca"));
+                os.setPeca(peca);
+
+                StatusServico status = new StatusServico();
+                status.setId(resultado.getInt("id_status"));
+                os.setStatusServico(status);
+
+                Garantia garantia = new Garantia();
+                garantia.setId(resultado.getInt("id_garantia"));
+                os.setGarantia(garantia);
+
+                FormaDePagamento pagamento = new FormaDePagamento();
+                pagamento.setId(resultado.getInt("id_pagamento"));
+                os.setPagamento(pagamento);
+
+                ordens.add(os);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todas as ordens de servico: " + e.getMessage());
+        }
+        return ordens;
     }
 }

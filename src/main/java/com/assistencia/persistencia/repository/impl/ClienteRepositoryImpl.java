@@ -5,6 +5,8 @@ import com.assistencia.config.DatabaseConfig;
 import com.assistencia.persistencia.repository.ClienteRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -116,5 +118,31 @@ public class ClienteRepositoryImpl implements ClienteRepository{
         }
         return false;
     }
-}
+    public List<Cliente> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
 
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM clientes";
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(resultado.getInt("id"));
+                cliente.setNome(resultado.getString("nome"));
+                cliente.setEmail(resultado.getString("email"));
+                cliente.setTelefone(resultado.getString("telefone"));
+
+                clientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todos os clientes: " + e.getMessage());
+        }
+        return clientes;
+    }
+}

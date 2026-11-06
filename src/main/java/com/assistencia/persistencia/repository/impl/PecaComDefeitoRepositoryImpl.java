@@ -7,6 +7,8 @@ import com.assistencia.entity.PecaComDefeito;
 import com.assistencia.persistencia.repository.PecaComDefeitoRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class PecaComDefeitoRepositoryImpl implements PecaComDefeitoRepository{
@@ -119,5 +121,36 @@ public class PecaComDefeitoRepositoryImpl implements PecaComDefeitoRepository{
             System.err.println("Erro ao deletar PecaComDefeito: " + e.getMessage());
         }
         return false;
+    }
+    public List<PecaComDefeito> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+        String sql = "SELECT * FROM pecas_com_defeito";
+
+        List<PecaComDefeito> pecas = new ArrayList<>();
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                PecaComDefeito pecaComDefeito = new PecaComDefeito();
+                pecaComDefeito.setId(resultado.getInt("id"));
+                pecaComDefeito.setTipoPeca(resultado.getString("tipo_peca"));
+                pecaComDefeito.setMarca(resultado.getString("marca"));
+                pecaComDefeito.setModelo(resultado.getString("modelo"));
+                pecaComDefeito.setDescricao(resultado.getString("descricao"));
+
+                Cliente cliente = new Cliente();
+                cliente.setId(resultado.getInt("id_cliente"));
+                pecaComDefeito.setCliente(cliente);
+
+                pecas.add(pecaComDefeito);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar todas as PecasComDefeito: " + e.getMessage());
+        }
+        return pecas;
     }
 }

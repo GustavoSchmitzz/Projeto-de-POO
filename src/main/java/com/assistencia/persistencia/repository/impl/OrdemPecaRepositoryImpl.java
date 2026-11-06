@@ -7,6 +7,8 @@ import com.assistencia.entity.Peca;
 import com.assistencia.persistencia.repository.OrdemPecaRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class OrdemPecaRepositoryImpl implements OrdemPecaRepository{
@@ -114,5 +116,37 @@ public class OrdemPecaRepositoryImpl implements OrdemPecaRepository{
             System.err.println("Erro ao atualizar ordem_peca: " + e.getMessage());
         }
         return false;
+    }
+    public List<OrdemPeca> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+        String sql = "SELECT * FROM ordem_peca";
+
+        List<OrdemPeca> ordensPeca = new ArrayList<>();
+        try (Connection conexao = DriverManager.getConnection(url, user, password);
+             PreparedStatement comando = conexao.prepareStatement(sql);
+             ResultSet resultado = comando.executeQuery()) {
+
+            while (resultado.next()) {
+                OrdemPeca ordemPeca = new OrdemPeca();
+                ordemPeca.setId(resultado.getInt("id"));
+                ordemPeca.setQuantidade(resultado.getInt("quantidade"));
+
+                OrdemDeServico os = new OrdemDeServico();
+                os.setId(resultado.getInt("id_ordem_servico"));
+                ordemPeca.setOrdemDeServico(os);
+
+                Peca peca = new Peca();
+                peca.setId(resultado.getInt("id_peca"));
+                ordemPeca.setPeca(peca);
+
+                ordensPeca.add(ordemPeca);
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar todas as ordens_peca: " + e.getMessage());
+        }
+        return ordensPeca;
     }
 }

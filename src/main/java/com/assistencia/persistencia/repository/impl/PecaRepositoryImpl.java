@@ -6,6 +6,8 @@ import com.assistencia.entity.Peca;
 import com.assistencia.persistencia.repository.PecaRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class PecaRepositoryImpl implements PecaRepository{
@@ -117,5 +119,36 @@ public class PecaRepositoryImpl implements PecaRepository{
             System.err.println("Erro ao atualizar Peca: " + e.getMessage());
         }
         return false;
+    }
+    public List<Peca> buscarTodos() {
+        Properties credenciais = DatabaseConfig.getCredenciais();
+        String url = credenciais.getProperty("db.url");
+        String user = credenciais.getProperty("db.usuario");
+        String password = credenciais.getProperty("db.senha");
+
+        List<Peca> pecas = new ArrayList<>();
+        String sql = "SELECT * FROM pecas";
+
+        try(Connection conexao = DriverManager.getConnection(url, user, password);
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            ResultSet resultado = comando.executeQuery()) {
+
+            while(resultado.next()) {
+                Peca peca = new Peca();
+                peca.setId(resultado.getInt("id_"));
+                peca.setNome(resultado.getString("nome"));
+                peca.setValor(resultado.getDouble("valor"));
+                peca.setEstoque(resultado.getInt("estoque"));
+
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setId(resultado.getInt("id_fornecedor"));
+                peca.setFornecedor(fornecedor);
+
+                pecas.add(peca);
+            }
+        }catch (SQLException e){
+            System.err.println("Erro ao buscar todas as Pecas: " + e.getMessage());
+        }
+        return pecas;
     }
 }
