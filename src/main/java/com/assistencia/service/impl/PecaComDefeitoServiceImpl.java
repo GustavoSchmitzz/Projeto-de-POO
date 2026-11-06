@@ -1,0 +1,87 @@
+package com.assistencia.service.impl;
+
+import com.assistencia.entity.PecaComDefeito;
+import com.assistencia.persistencia.repository.impl.PecaComDefeitoRepositoryImpl;
+import com.assistencia.service.PecaComDefeitoService;
+
+import java.util.concurrent.ExecutionException;
+
+public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
+
+    private final PecaComDefeitoRepositoryImpl pecaComDefeitoRepository;
+    public PecaComDefeitoServiceImpl(PecaComDefeitoRepositoryImpl pecaComDefeitoRepository) {
+        this.pecaComDefeitoRepository = pecaComDefeitoRepository;
+    }
+
+    public PecaComDefeito buscaPorID(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("O Id nao pode ser menor ou igual a zero.");
+        }
+        PecaComDefeito pecaComDefeito = pecaComDefeitoRepository.buscar(id);
+        if (pecaComDefeito == null) {
+            throw new IllegalArgumentException("Peca com defeito nao encontrada no banco de dados.");
+        }
+        return pecaComDefeito;
+    }
+
+    public PecaComDefeito adicionaPeca(PecaComDefeito pecaComDefeito) {
+        if (pecaComDefeito == null) {
+            throw new IllegalArgumentException("Peca com defeito nao pode ser nulo.");
+        }
+        if (pecaComDefeito.getTipoPeca() == null || pecaComDefeito.getTipoPeca().trim().isEmpty()) {
+            throw new IllegalArgumentException("O Tipo de Peca nao pode ser nulo ou vazio.");
+        }
+        if (pecaComDefeito.getMarca() == null || pecaComDefeito.getMarca().trim().isEmpty()) {
+            throw new IllegalArgumentException("A marca nao pode ser nulo ou vazio.");
+        }
+        if (pecaComDefeito.getDescricao() == null || pecaComDefeito.getDescricao().trim().isEmpty()) {
+            throw new IllegalArgumentException("A Descricao nao pode ser nula ou vazia.");
+        }
+        if (pecaComDefeito.getModelo() == null ||  pecaComDefeito.getModelo().trim().isEmpty()) {
+            throw new IllegalArgumentException("O modelo nao pode ser nula ou vazia.");
+        }
+        if (pecaComDefeito.getCliente() == null || pecaComDefeito.getCliente().getId() <= 0) {
+            throw new IllegalArgumentException("O Id nao pode ser nulo ou menor que 1.");
+        }
+
+        pecaComDefeito.setTipoPeca(pecaComDefeito.getTipoPeca().trim().toLowerCase());
+        pecaComDefeito.setMarca(pecaComDefeito.getMarca().trim().toLowerCase());
+        pecaComDefeito.setModelo(pecaComDefeito.getModelo().trim().toLowerCase());
+        pecaComDefeito.setDescricao(pecaComDefeito.getDescricao().trim().toLowerCase());
+
+        return pecaComDefeitoRepository.criar(pecaComDefeito);
+    }
+    public boolean atualizaPecaComDefeito(PecaComDefeito pecaComDefeito) {
+        if (pecaComDefeito == null) {
+            throw new IllegalArgumentException("Peca com defeito nao pode ser nulo.");
+        }
+        if (pecaComDefeito.getId() == null) {
+            throw new IllegalArgumentException("O Id nao pode ser nulo.");
+        }
+        if (pecaComDefeitoRepository.buscar(pecaComDefeito.getId()) == null) {
+            throw new RuntimeException("O produto com defeito nao existe no banco de dados.");
+        }
+        if (pecaComDefeito.getTipoPeca() == null || pecaComDefeito.getTipoPeca().trim().isEmpty()) {
+            throw new IllegalArgumentException("O Tipo de Peca nao pode ser nulo ou vazio.");
+        }
+        if (pecaComDefeito.getModelo() == null || pecaComDefeito.getModelo().trim().isEmpty()) {
+            throw new IllegalArgumentException("O Modelo nao pode ser nulo ou vazio.");
+        }
+        if (pecaComDefeito.getMarca() == null || pecaComDefeito.getMarca().trim().isEmpty()) {
+            throw new IllegalArgumentException("A marca nao pode ser nula ou vazia.");
+        }
+        if (pecaComDefeito.getDescricao() == null ||  pecaComDefeito.getDescricao().trim().isEmpty()) {
+            throw new IllegalArgumentException("A Descricao nao pode ser nula ou vazia.");
+        }
+        if (pecaComDefeito.getCliente() == null || pecaComDefeito.getCliente().getId() <= 0) {
+            throw new IllegalArgumentException("O Id nao pode ser nulo ou menor que 1.");
+        }
+
+        pecaComDefeito.setTipoPeca(pecaComDefeito.getTipoPeca().trim().toLowerCase());
+        pecaComDefeito.setMarca(pecaComDefeito.getMarca().trim().toLowerCase());
+        pecaComDefeito.setModelo(pecaComDefeito.getModelo().trim().toLowerCase());
+        pecaComDefeito.setDescricao(pecaComDefeito.getDescricao().trim().toLowerCase());
+
+        return pecaComDefeitoRepository.atualizar(pecaComDefeito);
+    }
+}
