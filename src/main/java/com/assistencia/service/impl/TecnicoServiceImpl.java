@@ -1,14 +1,12 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.Tecnico;
-import com.assistencia.persistencia.repository.impl.TecnicoRepositoryImpl;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
+import com.assistencia.persistencia.repository.TecnicoRepository;
 import com.assistencia.service.TecnicoService;
 
 public class TecnicoServiceImpl implements TecnicoService {
-    private final TecnicoRepositoryImpl tecnicoRepository;
-    public TecnicoServiceImpl(TecnicoRepositoryImpl tecnicoRepository) {
-        this.tecnicoRepository = tecnicoRepository;
-    }
+    private final TecnicoRepository tecnicoRepository = RepositoryAbstractFactory.criarTecnicoRepository();
 
     public Tecnico buscaPorId(int id) {
         if (id <= 0) {

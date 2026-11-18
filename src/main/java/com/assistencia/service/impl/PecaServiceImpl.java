@@ -1,14 +1,12 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.Peca;
-import com.assistencia.persistencia.repository.impl.PecaRepositoryImpl;
+import com.assistencia.persistencia.repository.PecaRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.PecaService;
 
 public class PecaServiceImpl implements PecaService {
-    private PecaRepositoryImpl pecaRepository;
-    public PecaServiceImpl(PecaRepositoryImpl pecaRepository) {
-        this.pecaRepository = pecaRepository;
-    }
+    private final PecaRepository pecaRepository = RepositoryAbstractFactory.criarPecaRepository();
 
     public Peca buscaPorId(int id) {
         if (id <= 0) {

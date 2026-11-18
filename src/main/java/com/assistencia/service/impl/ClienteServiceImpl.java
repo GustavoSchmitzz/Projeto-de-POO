@@ -1,15 +1,12 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.Cliente;
-import com.assistencia.persistencia.repository.impl.ClienteRepositoryImpl;
+import com.assistencia.persistencia.repository.ClienteRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.ClienteService;
 
 public class ClienteServiceImpl implements ClienteService {
-    private final ClienteRepositoryImpl clienteRepository;
-
-    public ClienteServiceImpl(ClienteRepositoryImpl clienteRepository) {
-        this.clienteRepository = clienteRepository;
-    }
+    private final ClienteRepository clienteRepository = RepositoryAbstractFactory.criarClienteRepository();
 
     public Cliente cadastrar(Cliente cliente) {
         if (cliente == null) {

@@ -4,17 +4,6 @@
  */
 package com.assistencia.service;
 
-import com.assistencia.persistencia.repository.impl.ClienteRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.EntregaOrdemDeServicoRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.FormaDePagamentoRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.FornecedorRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.GarantiaRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.OrdemDeServicoRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.OrdemPecaRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.PecaComDefeitoRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.PecaRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.StatusServicoRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.TecnicoRepositoryImpl;
 import com.assistencia.service.impl.ClienteServiceImpl;
 import com.assistencia.service.impl.EntregaOrdemDeServicoServiceImpl;
 import com.assistencia.service.impl.FormaDePagamentoServiceImpl;
@@ -34,46 +23,46 @@ import com.assistencia.service.impl.TecnicoServiceImpl;
 public class ServiceAbstractFactory {
 
     public static ClienteService criarClienteService() {
-        return new ClienteServiceImpl(new ClienteRepositoryImpl());
+        return new ClienteServiceImpl();
     }
 
     public static EntregaOrdemDeServicoService criarEntregaOrdemDeServicoService() {
-        return new EntregaOrdemDeServicoServiceImpl(new OrdemDeServicoRepositoryImpl(), new EntregaOrdemDeServicoRepositoryImpl());
+        return new EntregaOrdemDeServicoServiceImpl();
     }
 
     public static FormaDePagamentoService criarFormaDePagamentoService() {
-        return new FormaDePagamentoServiceImpl(new FormaDePagamentoRepositoryImpl());
+        return new FormaDePagamentoServiceImpl();
     }
 
     public static FornecedorService criarFornecedorService() {
-        return new FornecedorServiceImpl(new FornecedorRepositoryImpl());
+        return new FornecedorServiceImpl();
     }
 
     public static GarantiaService criarGarantiaService() {
-        return new GarantiaServiceImpl(new GarantiaRepositoryImpl(), new OrdemDeServicoRepositoryImpl());
+        return new GarantiaServiceImpl();
     }
 
     public static OrdemDeServicoService criarOrdemDeServicoService() {
-        return new OrdemDeServicoServiceImpl(new FornecedorRepositoryImpl());
+        return new OrdemDeServicoServiceImpl();
     }
 
     public static OrdemPecaService criarOrdemPecaService() {
-        return new OrdemPecaServiceImpl(new OrdemPecaRepositoryImpl());
+        return new OrdemPecaServiceImpl();
     }
 
     public static PecaComDefeitoService criarPecaComDefeitoService() {
-        return new PecaComDefeitoServiceImpl(new PecaComDefeitoRepositoryImpl());
+        return new PecaComDefeitoServiceImpl();
     }
 
     public static PecaService criarPecaService() {
-        return new PecaServiceImpl(new PecaRepositoryImpl());
+        return new PecaServiceImpl();
     }
 
     public static StatusServicoService criarStatusServicoService() {
-        return new StatusServicoServiceImpl(new StatusServicoRepositoryImpl());
+        return new StatusServicoServiceImpl();
     }
 
     public static TecnicoService criarTecnicoService() {
-        return new TecnicoServiceImpl(new TecnicoRepositoryImpl());
+        return new TecnicoServiceImpl();
     }
 }

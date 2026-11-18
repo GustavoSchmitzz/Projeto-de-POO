@@ -1,17 +1,15 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.PecaComDefeito;
-import com.assistencia.persistencia.repository.impl.PecaComDefeitoRepositoryImpl;
+import com.assistencia.persistencia.repository.PecaComDefeitoRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.PecaComDefeitoService;
 
 import java.util.concurrent.ExecutionException;
 
 public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
 
-    private final PecaComDefeitoRepositoryImpl pecaComDefeitoRepository;
-    public PecaComDefeitoServiceImpl(PecaComDefeitoRepositoryImpl pecaComDefeitoRepository) {
-        this.pecaComDefeitoRepository = pecaComDefeitoRepository;
-    }
+    private final PecaComDefeitoRepository pecaComDefeitoRepository = RepositoryAbstractFactory.criarPecaComDefeitoRepository();
 
     public PecaComDefeito buscaPorID(int id) {
         if (id <= 0) {

@@ -1,14 +1,12 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.Fornecedor;
-import com.assistencia.persistencia.repository.impl.FornecedorRepositoryImpl;
+import com.assistencia.persistencia.repository.FornecedorRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.FornecedorService;
 
 public class FornecedorServiceImpl implements FornecedorService {
-    private FornecedorRepositoryImpl fornecedorRepository;
-    public FornecedorServiceImpl(FornecedorRepositoryImpl fornecedorRepository) {
-        this.fornecedorRepository = fornecedorRepository;
-    }
+    private final FornecedorRepository fornecedorRepository = RepositoryAbstractFactory.criarFornecedorRepository();
 
     public Fornecedor cadastrar(Fornecedor fornecedor) {
         if (fornecedor == null) {

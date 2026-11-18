@@ -1,16 +1,14 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.OrdemDeServico;
-import com.assistencia.persistencia.repository.impl.FornecedorRepositoryImpl;
+import com.assistencia.persistencia.repository.FornecedorRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.OrdemDeServicoService;
 
 import java.math.BigDecimal;
 
 public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
-    private final FornecedorRepositoryImpl fornecedorRepository;
-    public OrdemDeServicoServiceImpl(FornecedorRepositoryImpl fornecedorRepository) {
-        this.fornecedorRepository = fornecedorRepository;
-    }
+    private final FornecedorRepository fornecedorRepository = RepositoryAbstractFactory.criarFornecedorRepository();
 
     public OrdemDeServico abrirOrdem(OrdemDeServico ordemDeServico) {
         if (ordemDeServico == null) {

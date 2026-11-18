@@ -2,21 +2,17 @@ package com.assistencia.service.impl;
 
 import com.assistencia.entity.EntregaOrdemDeServico;
 import com.assistencia.entity.OrdemDeServico;
-import com.assistencia.persistencia.repository.impl.EntregaOrdemDeServicoRepositoryImpl;
-import com.assistencia.persistencia.repository.impl.OrdemDeServicoRepositoryImpl;
+import com.assistencia.persistencia.repository.EntregaOrdemDeServicoRepository;
+import com.assistencia.persistencia.repository.OrdemDeServicoRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.EntregaOrdemDeServicoService;
 
 import java.time.LocalDate;
 
 public class EntregaOrdemDeServicoServiceImpl implements EntregaOrdemDeServicoService {
-    private OrdemDeServicoRepositoryImpl ordemDeServicoRepository;
-    private EntregaOrdemDeServicoRepositoryImpl entregaServicoRepository;
+    private final OrdemDeServicoRepository ordemDeServicoRepository = RepositoryAbstractFactory.criarOrdemDeServicoRepository();
+    private final EntregaOrdemDeServicoRepository entregaServicoRepository = RepositoryAbstractFactory.criarEntregaOrdemDeServicoRepository();
 
-    public EntregaOrdemDeServicoServiceImpl(OrdemDeServicoRepositoryImpl ordemDeServicoRepository,
-                                            EntregaOrdemDeServicoRepositoryImpl entregaServicoRepository) {
-        this.ordemDeServicoRepository = ordemDeServicoRepository;
-        this.entregaServicoRepository = entregaServicoRepository;
-    }
     /* Status OS
      *
      * id = 1 significa em espera

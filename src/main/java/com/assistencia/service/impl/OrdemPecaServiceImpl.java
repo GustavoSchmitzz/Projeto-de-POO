@@ -1,14 +1,12 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.OrdemPeca;
-import com.assistencia.persistencia.repository.impl.OrdemPecaRepositoryImpl;
+import com.assistencia.persistencia.repository.OrdemPecaRepository;
+import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.OrdemPecaService;
 
 public class OrdemPecaServiceImpl implements OrdemPecaService {
-    private final OrdemPecaRepositoryImpl ordemPecaRepository;
-    public OrdemPecaServiceImpl(OrdemPecaRepositoryImpl ordemPecaRepository) {
-        this.ordemPecaRepository = ordemPecaRepository;
-    }
+    private final OrdemPecaRepository ordemPecaRepository = RepositoryAbstractFactory.criarOrdemPecaRepository();
 
     public OrdemPeca abreOrdemPeca(OrdemPeca ordemPeca) {
         if (ordemPeca == null) {
