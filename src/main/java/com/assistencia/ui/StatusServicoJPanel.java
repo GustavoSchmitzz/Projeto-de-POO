@@ -126,7 +126,8 @@ public class StatusServicoJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
-        // TODO add your handling code here:
+        idJTextField.setText("");
+        statusJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 

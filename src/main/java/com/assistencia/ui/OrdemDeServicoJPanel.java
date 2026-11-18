@@ -125,6 +125,7 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         deletarJbutton.setText("Deletar");
 
         cancelarJButton.setText("Cancelar");
+        cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -234,6 +235,18 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
     private void dataDeInicioJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataDeInicioJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dataDeInicioJTextFieldActionPerformed
+
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        idJTextField.setText("");
+        dataDeInicioJTextField.setText("");
+        valorServicoJTextField.setText("");
+        idTecnicoJTextField.setText("");
+        idPecaJTextField.setText("");
+        idOrdemDaPecajTextField.setText("");
+        idStatusServicoJTextField.setText("");
+        idGarantiaJTextField.setText("");
+        idPagamentoTextField.setText("");
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

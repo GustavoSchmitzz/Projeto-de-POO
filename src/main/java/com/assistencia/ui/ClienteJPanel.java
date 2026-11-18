@@ -59,6 +59,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
         salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         cancelarJButton.setText("Cancelar");
+        cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,6 +168,13 @@ public class ClienteJPanel extends javax.swing.JPanel {
     private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarJButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deletarJButtonActionPerformed
+
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        idJTextField.setText("");
+        nomeJTextField.setText("");
+        telefoneJTextField.setText("");
+        emailJTextField.setText("");
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

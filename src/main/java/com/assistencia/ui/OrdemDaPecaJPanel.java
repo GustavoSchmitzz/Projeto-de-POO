@@ -62,6 +62,7 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
         deletarJButton.setText("Deletar");
 
         cancelarJButton.setText("Cancelar");
+        cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,6 +152,13 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
+ 
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        idJTextField.setText("");
+        quantidadeJTextField.setText("");
+        idDaPecaJTextField.setText("");
+        idDaOSJTextField.setText("");
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

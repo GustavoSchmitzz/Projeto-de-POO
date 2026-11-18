@@ -59,6 +59,7 @@ public class TecnicoJPanel extends javax.swing.JPanel {
         deletarJButton.addActionListener(this::deletarJButtonActionPerformed);
 
         cancelarJButton.setText("Cancelar");
+        cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         salvarJButton.setText("Salvar");
 
@@ -162,6 +163,14 @@ public class TecnicoJPanel extends javax.swing.JPanel {
     private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarJButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deletarJButtonActionPerformed
+
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        idJTextField.setText("");
+        nomeJTextField.setText("");
+        telefoneJTextField.setText("");
+        emailJTextField.setText("");
+        especialidadeJTextField.setText("");
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

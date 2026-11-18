@@ -50,6 +50,7 @@ public class FormaDePagamentoJPanel extends javax.swing.JPanel {
         deletarJButton.setText("Deletar");
 
         cancelarJButton.setText("Cancelar");
+        cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -129,6 +130,11 @@ public class FormaDePagamentoJPanel extends javax.swing.JPanel {
     private void formaDePagamentoJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formaDePagamentoJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_formaDePagamentoJTextFieldActionPerformed
+
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        idJTextField.setText("");
+        formaDePagamentoJTextField.setText("");
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

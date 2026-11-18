@@ -69,6 +69,7 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         deletarJButton.addActionListener(this::deletarJButtonActionPerformed);
 
         cancelarJButton.setText("Cancelar");
+        cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,6 +190,15 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
     private void modeloJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modeloJTextFieldActionPerformed
+
+    private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
+        idJTextField.setText("");
+        tipoPecaJTextField.setText("");
+        marcaJTextField.setText("");
+        modeloJTextField.setText("");
+        idClienteJTextField.setText("");
+        descricaoJTextArea.setText("");
+    }//GEN-LAST:event_cancelarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
