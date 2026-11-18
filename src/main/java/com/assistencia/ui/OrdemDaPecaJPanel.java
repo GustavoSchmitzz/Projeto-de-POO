@@ -42,11 +42,20 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         quantidadeJLabel.setText("Quantidade:");
 
         idDaPecaJLabel.setText("Id da peça:");
 
+        idDaPecaJTextField.setEditable(false);
+        idDaPecaJTextField.setEnabled(false);
+
         idDaOSJLabel.setText("Id da OS:");
+
+        idDaOSJTextField.setEditable(false);
+        idDaOSJTextField.setEnabled(false);
 
         salvarJButton.setText("Salvar");
 

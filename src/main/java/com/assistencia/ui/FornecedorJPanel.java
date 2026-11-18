@@ -42,6 +42,9 @@ public class FornecedorJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         nomeJLabel.setText("Nome:");
 
         telefonejLabel.setText("Telefone:");

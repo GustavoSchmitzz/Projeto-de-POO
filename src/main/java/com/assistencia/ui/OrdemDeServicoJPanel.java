@@ -66,9 +66,29 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
 
         idGarantiaJLabel.setText("Id garantia:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
         idJTextField.addActionListener(this::idJTextFieldActionPerformed);
 
         idPagamentoJLabel.setText("Id Pagamento:");
+
+        idTecnicoJTextField.setEditable(false);
+        idTecnicoJTextField.setEnabled(false);
+
+        idPecaJTextField.setEditable(false);
+        idPecaJTextField.setEnabled(false);
+
+        idOrdemDaPecajTextField.setEditable(false);
+        idOrdemDaPecajTextField.setEnabled(false);
+
+        idStatusServicoJTextField.setEditable(false);
+        idStatusServicoJTextField.setEnabled(false);
+
+        idGarantiaJTextField.setEditable(false);
+        idGarantiaJTextField.setEnabled(false);
+
+        idPagamentoTextField.setEditable(false);
+        idPagamentoTextField.setEnabled(false);
 
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

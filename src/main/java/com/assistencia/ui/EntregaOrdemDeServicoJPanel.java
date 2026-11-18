@@ -40,11 +40,17 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         dataDeEntragaJLabel.setText("Data de entrega:");
 
         dataDaEntregaJFormattedTextField.addActionListener(this::dataDaEntregaJFormattedTextFieldActionPerformed);
 
         idDaOSJLabel.setText("Id da OS:");
+
+        idDaOSJTextField.setEditable(false);
+        idDaOSJTextField.setEnabled(false);
 
         salvarJButton.setText("Salvar");
         salvarJButton.addActionListener(this::salvarJButtonActionPerformed);

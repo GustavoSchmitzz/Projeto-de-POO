@@ -52,6 +52,12 @@ public class PecaJPanel extends javax.swing.JPanel {
 
         idFornecedorJLabel.setText("Id Fornecedor:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
+        idFornecedorJTextField.setEditable(false);
+        idFornecedorJTextField.setEnabled(false);
+
         nomeJTextField.addActionListener(this::nomeJTextFieldActionPerformed);
 
         salvarJButton.setText("Salvar");

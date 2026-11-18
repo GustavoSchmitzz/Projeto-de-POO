@@ -40,6 +40,8 @@ public class GarantiaJPanel extends javax.swing.JPanel {
 
         diasDeGarantiaJLabel.setText("Dias de garantia:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
         idJTextField.addActionListener(this::idJTextFieldActionPerformed);
 
         salvarJButton.setText("Salvar");

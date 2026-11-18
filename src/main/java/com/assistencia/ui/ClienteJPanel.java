@@ -52,6 +52,9 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         salvarJButton.setText("Salvar");
         salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 

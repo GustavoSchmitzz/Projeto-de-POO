@@ -52,6 +52,9 @@ public class TecnicoJPanel extends javax.swing.JPanel {
 
         especialidadeJLabel.setText("Especialidade:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         deletarJButton.setText("Deletar");
         deletarJButton.addActionListener(this::deletarJButtonActionPerformed);
 

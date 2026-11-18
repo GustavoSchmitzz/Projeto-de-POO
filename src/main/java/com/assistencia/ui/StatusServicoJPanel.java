@@ -40,6 +40,9 @@ public class StatusServicoJPanel extends javax.swing.JPanel {
 
         statusJLabel.setText("Status:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         salvarJButton.setText("Salvar");
 
         cancelarJButton.setText("Cancelar");

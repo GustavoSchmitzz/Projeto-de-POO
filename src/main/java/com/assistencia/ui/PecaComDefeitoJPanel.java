@@ -55,6 +55,12 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
 
         IdClienteJLabel.setText("Id do cliente:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
+        idClienteJTextField.setEditable(false);
+        idClienteJTextField.setEnabled(false);
+
         modeloJTextField.addActionListener(this::modeloJTextFieldActionPerformed);
 
         salvarJButton.setText("Salvar");

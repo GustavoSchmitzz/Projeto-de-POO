@@ -38,6 +38,9 @@ public class FormaDePagamentoJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         formaDePagamentojLabel.setText("Forma de pagamento:");
 
         formaDePagamentoJTextField.addActionListener(this::formaDePagamentoJTextFieldActionPerformed);
