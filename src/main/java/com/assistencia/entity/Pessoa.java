@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.assistencia.entity;
 
-/**
- *
- * @author gustavoaes
- */
+
 public abstract class Pessoa {
     private String nome;
     private String telefone;
@@ -18,7 +11,13 @@ public abstract class Pessoa {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("nome nao pode ser nulo ou vazio.");
+        }
+        if (nome.length() > 100) {
+            throw new IllegalArgumentException("nome nao pode ter mais de 100 caracteres.");
+        }
+        this.nome = nome.trim().toLowerCase();
     }
 
     public String getTelefone() {
@@ -26,7 +25,10 @@ public abstract class Pessoa {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        if (telefone == null || !telefone.trim().matches("^[0-9]{10,11}$")) {
+            throw new IllegalArgumentException("telefone nao pode ser nulo, vazio ou ter mais de 11 caracteres.");
+        }
+        this.telefone = telefone.trim();
     }
 
     public String getEmail() {
@@ -34,8 +36,9 @@ public abstract class Pessoa {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email == null || !email.trim().matches("^[a-zA-Z0-9À-ÿ._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$")) {
+            throw new IllegalArgumentException("email nao pode ser nulo ou invalido.");
+        }
+        this.email = email.trim().toLowerCase();
     }
-    
-    
 }

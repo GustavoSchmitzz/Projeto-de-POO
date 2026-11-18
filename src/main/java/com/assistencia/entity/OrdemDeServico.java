@@ -1,6 +1,8 @@
 package com.assistencia.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+
 
 public class OrdemDeServico {
     private int id;
@@ -11,7 +13,7 @@ public class OrdemDeServico {
     private OrdemPeca ordemPeca;
     private StatusServico statusServico;
     private Garantia garantia;
-    private FormaDePagamento  pagamento;
+    private FormaDePagamento pagamento;
 
     public Integer getId() {
         return id;
@@ -26,6 +28,9 @@ public class OrdemDeServico {
     }
 
     public void setDataInicio(LocalDate dataInicio) {
+        if (dataInicio == null) {
+            throw new IllegalArgumentException("dataInicio nao pode ser nulo.");
+        }
         this.dataInicio = dataInicio;
     }
 
@@ -34,6 +39,12 @@ public class OrdemDeServico {
     }
 
     public void setValorServico(double valorServico) {
+        if (valorServico < 0) {
+            throw new IllegalArgumentException("valorServico nao pode ser menor que zero.");
+        }
+        if (BigDecimal.valueOf(valorServico).scale() > 2) {
+            throw new IllegalArgumentException("O valor do servico nao deve ter mais de duas casas decimais.");
+        }
         this.valorServico = valorServico;
     }
 
@@ -42,6 +53,9 @@ public class OrdemDeServico {
     }
 
     public void setTecnico(Tecnico tecnico) {
+        if (tecnico == null) {
+            throw new IllegalArgumentException("tecnico nao pode ser nulo.");
+        }
         this.tecnico = tecnico;
     }
 
@@ -50,6 +64,9 @@ public class OrdemDeServico {
     }
 
     public void setPeca(PecaComDefeito peca) {
+        if (peca == null) {
+            throw new IllegalArgumentException("peca nao pode ser nula.");
+        }
         this.peca = peca;
     }
 
@@ -58,6 +75,9 @@ public class OrdemDeServico {
     }
 
     public void setStatusServico(StatusServico statusServico) {
+        if (statusServico == null) {
+            throw new IllegalArgumentException("statusServico nao pode ser nulo.");
+        }
         this.statusServico = statusServico;
     }
 
@@ -66,6 +86,9 @@ public class OrdemDeServico {
     }
 
     public void setGarantia(Garantia garantia) {
+        if (garantia == null) {
+            throw new IllegalArgumentException("garantia nao pode ser nula.");
+        }
         this.garantia = garantia;
     }
 
@@ -74,6 +97,9 @@ public class OrdemDeServico {
     }
 
     public void setPagamento(FormaDePagamento pagamento) {
+        if (pagamento == null) {
+            throw new IllegalArgumentException("pagamento nao pode ser nulo.");
+        }
         this.pagamento = pagamento;
     }
 
@@ -83,5 +109,5 @@ public class OrdemDeServico {
 
     public void setOrdemPeca(OrdemPeca ordemPeca) {
         this.ordemPeca = ordemPeca;
-    } 
+    }
 }
