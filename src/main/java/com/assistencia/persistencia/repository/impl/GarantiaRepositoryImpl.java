@@ -25,7 +25,7 @@ public class GarantiaRepositoryImpl implements GarantiaRepository{
 
             while (resultado.next()) {
                 Garantia garantia = new Garantia();
-                garantia.setId(resultado.getInt("id_"));
+                garantia.setId(resultado.getInt("id"));
                 garantia.setDiasDeGarantia(resultado.getInt("dias_de_garantia"));
 
                 garantias.add(garantia);
