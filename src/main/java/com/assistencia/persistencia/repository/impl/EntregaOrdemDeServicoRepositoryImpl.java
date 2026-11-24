@@ -19,9 +19,9 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
 
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
-        String password = credenciais.getProperty("db.password");
+        String password = credenciais.getProperty("db.senha");
 
-        String sql = "INSERT INTO entrega_ordens_de_servico (dataEntrega, ordemDeServico) VALUES (?, ?)";
+        String sql = "INSERT INTO entrega_ordens_de_servico (data_entrega, id_ordem_servico) VALUES (?, ?)";
 
         try(Connection conexao = DriverManager.getConnection(url, user,password);
             PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -46,7 +46,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
-        String password = credenciais.getProperty("db.password");
+        String password = credenciais.getProperty("db.senha");
 
         String sql = "SELECT * FROM entrega_ordens_de_servico WHERE id = ?";
 
@@ -71,7 +71,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
                 }
             }
         }catch(SQLException e){
-            System.err.println("Erro ao salvar a entrega: " + e.getMessage());
+            System.err.println("Erro ao buscar a entrega: " + e.getMessage());
         }
         return null;
     }
@@ -79,7 +79,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
-        String password = credenciais.getProperty("db.password");
+        String password = credenciais.getProperty("db.senha");
 
         String sql = "DELETE FROM entrega_ordens_de_servico WHERE id = ?";
         try(Connection conexao = DriverManager.getConnection(url, user, password);
@@ -92,7 +92,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
             return linhasDeletadas > 0;
 
         }catch(SQLException e){
-            System.err.println("Erro ao salvar a entrega: " + e.getMessage());
+            System.err.println("Erro ao deletar a entrega: " + e.getMessage());
         }
         return false;
     }
@@ -100,7 +100,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
-        String password = credenciais.getProperty("db.password");
+        String password = credenciais.getProperty("db.senha");
 
         String sql = "UPDATE entrega_ordens_de_servico SET data_entrega = ?, id_ordem_servico = ? WHERE id = ?";
 
@@ -115,7 +115,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
 
             return linhasAtualizadas > 0;
         }catch(SQLException e){
-            System.err.println("Erro ao salvar a entrega: " + e.getMessage());
+            System.err.println("Erro ao atualizar a entrega: " + e.getMessage());
         }
         return false;
     }
@@ -123,7 +123,7 @@ public class EntregaOrdemDeServicoRepositoryImpl implements EntregaOrdemDeServic
         Properties credenciais = DatabaseConfig.getCredenciais();
         String url = credenciais.getProperty("db.url");
         String user = credenciais.getProperty("db.usuario");
-        String password = credenciais.getProperty("db.password");
+        String password = credenciais.getProperty("db.senha");
 
         List<EntregaOrdemDeServico> entregas = new ArrayList<>();
         String sql = "SELECT * FROM entrega_ordens_de_servico";
