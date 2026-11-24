@@ -27,7 +27,7 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
 
             try(ResultSet resultado = comando.getGeneratedKeys()) {
                 if (resultado.next()) {
-                    fornecedor.setId(resultado.getInt("id_"));
+                    fornecedor.setId(resultado.getInt(1));
                 }
             }
             return fornecedor;
@@ -42,7 +42,7 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "SELECT * FROM fornecedor WHERE id = ?";
+        String sql = "SELECT * FROM fornecedores WHERE id = ?";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
@@ -68,7 +68,7 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "DELETE FROM fornecedor WHERE id = ?";
+        String sql = "DELETE FROM fornecedores WHERE id = ?";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
@@ -89,7 +89,7 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "UPDATE fornecedores SET nome = ?, telefone = ? WHERE id_ = ?";
+        String sql = "UPDATE fornecedores SET nome = ?, telefone = ? WHERE id = ?";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
@@ -113,7 +113,7 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
         String password = credenciais.getProperty("db.senha");
 
         List<Fornecedor> fornecedores = new ArrayList<>();
-        String sql = "SELECT * FROM fornecedor";
+        String sql = "SELECT * FROM fornecedores";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
              PreparedStatement comando = conexao.prepareStatement(sql);
              ResultSet resultado = comando.executeQuery()) {
