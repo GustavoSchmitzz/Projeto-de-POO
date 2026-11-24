@@ -17,7 +17,7 @@ public class PecaRepositoryImpl implements PecaRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "INSERT INTO pecas (nome, valor, estoque, fornecedor) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO pecas (nome, valor, estoque, id_fornecedor) VALUES (?, ?, ?, ?)";
 
         try (Connection conexao = DriverManager.getConnection(url, user, password);
              PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
@@ -47,7 +47,7 @@ public class PecaRepositoryImpl implements PecaRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "SELECT * FROM pecas WHERE id_ = ?";
+        String sql = "SELECT * FROM pecas WHERE id = ?";
 
         try(Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
@@ -79,7 +79,7 @@ public class PecaRepositoryImpl implements PecaRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "DELETE FROM pecas WHERE id_ = ?";
+        String sql = "DELETE FROM pecas WHERE id = ?";
         try(Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
@@ -100,7 +100,7 @@ public class PecaRepositoryImpl implements PecaRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "UPDATE tecnicos SET nome = ?, telefone = ?, estoque = ?, fornecedor = ? WHERE id_ = ?";
+        String sql = "UPDATE pecas SET nome = ?, valor = ?, estoque = ?, id_fornecedor = ? WHERE id = ?";
 
         try(Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
@@ -135,7 +135,7 @@ public class PecaRepositoryImpl implements PecaRepository{
 
             while(resultado.next()) {
                 Peca peca = new Peca();
-                peca.setId(resultado.getInt("id_"));
+                peca.setId(resultado.getInt("id"));
                 peca.setNome(resultado.getString("nome"));
                 peca.setValor(resultado.getDouble("valor"));
                 peca.setEstoque(resultado.getInt("estoque"));
