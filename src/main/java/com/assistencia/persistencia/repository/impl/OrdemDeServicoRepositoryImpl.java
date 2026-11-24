@@ -18,14 +18,22 @@ public class OrdemDeServicoRepositoryImpl implements OrdemDeServicoRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
         String sql = "INSERT INTO ordens_de_servico (valor_servico, id_garantia, id_pagamento," +
-                "data_inicio, tecnico, peca, status_servico) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                " data_inicio, id_tecnico, id_peca, id_status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conexao = DriverManager.getConnection(url, user, password);
              PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             comando.setDouble(1, ordemDeServico.getValorServico());
-            comando.setInt(2, ordemDeServico.getGarantia().getId());
-            comando.setInt(3, ordemDeServico.getPagamento().getId());
+            if (ordemDeServico.getGarantia() != null && ordemDeServico.getGarantia().getId() > 0) {
+                comando.setInt(2, ordemDeServico.getGarantia().getId());
+            } else {
+                comando.setNull(2, Types.INTEGER);
+            }
+            if (ordemDeServico.getPagamento() != null && ordemDeServico.getPagamento().getId() > 0) {
+                comando.setInt(3, ordemDeServico.getPagamento().getId());
+            } else {
+                comando.setNull(3, Types.INTEGER);
+            }
             comando.setDate(4, valueOf(ordemDeServico.getDataInicio()));
             comando.setInt(5, ordemDeServico.getTecnico().getId());
             comando.setInt(6, ordemDeServico.getPeca().getId());
@@ -60,7 +68,10 @@ public class OrdemDeServicoRepositoryImpl implements OrdemDeServicoRepository{
                 if (resultado.next()) {
                     OrdemDeServico os = new OrdemDeServico();
                     os.setId(resultado.getInt("id"));
-                    os.setDataInicio(resultado.getDate("data_inicio").toLocalDate());
+                    Date dataInicio = resultado.getDate("data_inicio");
+                    if (dataInicio != null) {
+                        os.setDataInicio(dataInicio.toLocalDate());
+                    }
 
                     Tecnico tecnico = new Tecnico();
                     tecnico.setId(resultado.getInt("id_tecnico"));
@@ -117,14 +128,22 @@ public class OrdemDeServicoRepositoryImpl implements OrdemDeServicoRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
         String sql = "UPDATE ordens_de_servico SET valor_servico = ?, id_garantia = ?, id_pagamento = ?," +
-                "data_inicio = ?, tecnico = ?, id_peca = ?, id_status = ? WHERE id = ?";
+                " data_inicio = ?, id_tecnico = ?, id_peca = ?, id_status = ? WHERE id = ?";
 
         try (Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql)) {
 
             comando.setDouble(1, ordemDeServico.getValorServico());
-            comando.setInt(2, ordemDeServico.getGarantia().getId());
-            comando.setInt(3, ordemDeServico.getGarantia().getId());
+            if (ordemDeServico.getGarantia() != null && ordemDeServico.getGarantia().getId() > 0) {
+                comando.setInt(2, ordemDeServico.getGarantia().getId());
+            } else {
+                comando.setNull(2, Types.INTEGER);
+            }
+            if (ordemDeServico.getPagamento() != null && ordemDeServico.getPagamento().getId() > 0) {
+                comando.setInt(3, ordemDeServico.getPagamento().getId());
+            } else {
+                comando.setNull(3, Types.INTEGER);
+            }
             comando.setDate(4, valueOf(ordemDeServico.getDataInicio()));
             comando.setInt(5, ordemDeServico.getTecnico().getId());
             comando.setInt(6, ordemDeServico.getPeca().getId());
