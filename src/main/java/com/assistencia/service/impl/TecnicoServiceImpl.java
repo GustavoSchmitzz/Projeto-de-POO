@@ -4,10 +4,12 @@ import com.assistencia.entity.Tecnico;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.persistencia.repository.TecnicoRepository;
 import com.assistencia.service.TecnicoService;
+import com.assistencia.service.dto.TecnicoDto;
 
 public class TecnicoServiceImpl implements TecnicoService {
     private final TecnicoRepository tecnicoRepository = RepositoryAbstractFactory.criarTecnicoRepository();
 
+    @Override
     public Tecnico buscaPorId(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser menor ou igual a zero.");
@@ -18,25 +20,37 @@ public class TecnicoServiceImpl implements TecnicoService {
         }
         return tecnico;
     }
-    public Tecnico cadastraTecnico(Tecnico tecnico) {
-        if (tecnico == null) {
+
+    @Override
+    public Tecnico cadastraTecnico(TecnicoDto dto) {
+        if (dto == null) {
             throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
         }
-        if (tecnico.getNome() == null || tecnico.getNome().trim().isEmpty()) {
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome nao pode ser vazio.");
         }
-        if (tecnico.getEspecialidade() == null || tecnico.getEspecialidade().trim().isEmpty()) {
+        if (dto.getEspecialidade() == null || dto.getEspecialidade().trim().isEmpty()) {
             throw new IllegalArgumentException("Especialidade nao pode ser vazio.");
         }
-        if (tecnico.getTelefone() == null || !tecnico.getTelefone().trim().matches("^[0-9]{10,11}$")) {
+        if (dto.getTelefone() == null || !dto.getTelefone().trim().matches("^[0-9]{10,11}$")) {
             throw new IllegalArgumentException("Telefone nao pode ser vazio ou com mais de 11 digitos.");
         }
 
-        tecnico.setNome(tecnico.getNome().trim().toLowerCase());
-        tecnico.setEspecialidade(tecnico.getEspecialidade().trim().toLowerCase());
+        Tecnico tecnico = new Tecnico();
+        if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
+            tecnico.setId(Integer.parseInt(dto.getId().trim()));
+        }
+        tecnico.setNome(dto.getNome().trim().toLowerCase());
+        tecnico.setEspecialidade(dto.getEspecialidade().trim().toLowerCase());
+        tecnico.setTelefone(dto.getTelefone().trim());
+        if (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) {
+            tecnico.setEmail(dto.getEmail().trim());
+        }
 
         return tecnicoRepository.criar(tecnico);
     }
+
+    @Override
     public boolean deletaTecnico(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("Id nao pode ser menor ou igual a zero.");
@@ -48,26 +62,37 @@ public class TecnicoServiceImpl implements TecnicoService {
 
         return tecnicoRepository.deletar(id);
     }
-    public boolean atualizaTecnico(Tecnico tecnico) {
-        if (tecnico == null) {
+
+    @Override
+    public boolean atualizaTecnico(TecnicoDto dto) {
+        if (dto == null) {
             throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
         }
-        if (tecnicoRepository.buscar(tecnico.getId()) == null) {
+        if (dto.getId() == null || dto.getId().trim().isEmpty()) {
+            throw new IllegalArgumentException("Id nao pode ser nulo.");
+        }
+        int id = Integer.parseInt(dto.getId().trim());
+        if (tecnicoRepository.buscar(id) == null) {
             throw new RuntimeException("Tecnico nao encontrado.");
         }
-        if (tecnico.getNome() == null || tecnico.getNome().trim().isEmpty()) {
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome nao pode ser vazio.");
         }
-        if (tecnico.getEspecialidade() == null || tecnico.getEspecialidade().trim().isEmpty()) {
+        if (dto.getEspecialidade() == null || dto.getEspecialidade().trim().isEmpty()) {
             throw new IllegalArgumentException("Especialidade nao pode ser vazio.");
         }
-        if (tecnico.getTelefone() == null || !tecnico.getTelefone().trim().matches("^[0-9]{10,11}$")) {
+        if (dto.getTelefone() == null || !dto.getTelefone().trim().matches("^[0-9]{10,11}$")) {
             throw new IllegalArgumentException("Telefone nao pode ser vazio ou com mais de 11 digitos.");
         }
 
-        tecnico.setNome(tecnico.getNome().trim().toLowerCase());
-        tecnico.setEspecialidade(tecnico.getEspecialidade().trim().toLowerCase());
-        tecnico.setTelefone(tecnico.getTelefone().trim());
+        Tecnico tecnico = new Tecnico();
+        tecnico.setId(id);
+        tecnico.setNome(dto.getNome().trim().toLowerCase());
+        tecnico.setEspecialidade(dto.getEspecialidade().trim().toLowerCase());
+        tecnico.setTelefone(dto.getTelefone().trim());
+        if (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) {
+            tecnico.setEmail(dto.getEmail().trim());
+        }
 
         return tecnicoRepository.atualizar(tecnico);
     }

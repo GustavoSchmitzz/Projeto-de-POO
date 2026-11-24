@@ -4,15 +4,27 @@ import com.assistencia.entity.Fornecedor;
 import com.assistencia.persistencia.repository.FornecedorRepository;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.FornecedorService;
+import com.assistencia.service.dto.FornecedorDto;
 
 public class FornecedorServiceImpl implements FornecedorService {
     private final FornecedorRepository fornecedorRepository = RepositoryAbstractFactory.criarFornecedorRepository();
 
     @Override
-    public Fornecedor cadastrar(Fornecedor fornecedor) {
-        if (fornecedor == null) {
+    public Fornecedor cadastrar(FornecedorDto dto) {
+        if (dto == null) {
             throw new IllegalArgumentException("fornecedor nao pode ser nulo.");
         }
+
+        Fornecedor fornecedor = new Fornecedor();
+        if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
+            fornecedor.setId(Integer.parseInt(dto.getId().trim()));
+        }
+        fornecedor.setNome(dto.getNome());
+        fornecedor.setTelefone(dto.getTelefone());
+        if (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) {
+            fornecedor.setEmail(dto.getEmail());
+        }
+
         return fornecedorRepository.criar(fornecedor);
     }
 
@@ -41,15 +53,24 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    public boolean atualizar(Fornecedor fornecedor) {
-        if (fornecedor == null) {
+    public boolean atualizar(FornecedorDto dto) {
+        if (dto == null) {
             throw new IllegalArgumentException("fornecedor nao pode ser nulo.");
         }
-        if (fornecedor.getId() == null) {
+        if (dto.getId() == null || dto.getId().trim().isEmpty()) {
             throw new IllegalArgumentException("id nao pode ser nulo.");
         }
-        if (fornecedorRepository.buscar(fornecedor.getId()) == null) {
+        int id = Integer.parseInt(dto.getId().trim());
+        if (fornecedorRepository.buscar(id) == null) {
             throw new IllegalArgumentException("O fornecedor nao existe no banco de dados.");
+        }
+
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setId(id);
+        fornecedor.setNome(dto.getNome());
+        fornecedor.setTelefone(dto.getTelefone());
+        if (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) {
+            fornecedor.setEmail(dto.getEmail());
         }
         
         return fornecedorRepository.atualizar(fornecedor);

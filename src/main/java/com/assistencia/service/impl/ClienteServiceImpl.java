@@ -4,15 +4,24 @@ import com.assistencia.entity.Cliente;
 import com.assistencia.persistencia.repository.ClienteRepository;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.ClienteService;
+import com.assistencia.service.dto.ClienteDto;
 
 public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository clienteRepository = RepositoryAbstractFactory.criarClienteRepository();
 
     @Override
-    public Cliente cadastrar(Cliente cliente) {
-        if (cliente == null) {
+    public Cliente cadastrar(ClienteDto dto) {
+        if (dto == null) {
             throw new IllegalArgumentException("cliente nao pode ser nulo.");
         }
+
+        Cliente cliente = new Cliente();
+        if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
+            cliente.setId(Integer.parseInt(dto.getId().trim()));
+        }
+        cliente.setNome(dto.getNome());
+        cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
         
         return clienteRepository.criar(cliente);
     }
@@ -42,16 +51,24 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public boolean atualizar(Cliente cliente) {
-        if (cliente == null) {
+    public boolean atualizar(ClienteDto dto) {
+        if (dto == null) {
             throw new IllegalArgumentException("cliente nao pode ser nulo.");
         }
-        if (cliente.getId() == null) {
+        if (dto.getId() == null || dto.getId().trim().isEmpty()) {
             throw new IllegalArgumentException("id nao pode ser nulo.");
         }
-        if (clienteRepository.buscar(cliente.getId()) == null) {
+        int id = Integer.parseInt(dto.getId().trim());
+        if (clienteRepository.buscar(id) == null) {
             throw new IllegalArgumentException("O cliente nao existe no banco de dados.");
         }
+
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+        cliente.setNome(dto.getNome());
+        cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
+
         return clienteRepository.atualizar(cliente);
     }
 }
