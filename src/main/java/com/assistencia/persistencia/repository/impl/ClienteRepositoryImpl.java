@@ -17,7 +17,7 @@ public class ClienteRepositoryImpl implements ClienteRepository{
         String user = credenciais.getProperty("db.usuario");
         String password = credenciais.getProperty("db.senha");
 
-        String sql = "INSERT INTO cliente (nome, email, telefone) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO clientes (nome, email, telefone) VALUES (?, ?, ?)";
         try (Connection conexao = DriverManager.getConnection(url, user, password);
             PreparedStatement comando = conexao.prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS)){
 
