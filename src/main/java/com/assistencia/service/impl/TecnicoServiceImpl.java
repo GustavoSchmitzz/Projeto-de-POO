@@ -23,18 +23,7 @@ public class TecnicoServiceImpl implements TecnicoService {
 
     @Override
     public Tecnico cadastraTecnico(TecnicoDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
-        }
-        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome nao pode ser vazio.");
-        }
-        if (dto.getEspecialidade() == null || dto.getEspecialidade().trim().isEmpty()) {
-            throw new IllegalArgumentException("Especialidade nao pode ser vazio.");
-        }
-        if (dto.getTelefone() == null || !dto.getTelefone().trim().matches("^[0-9]{10,11}$")) {
-            throw new IllegalArgumentException("Telefone nao pode ser vazio ou com mais de 11 digitos.");
-        }
+        validar(dto);
 
         Tecnico tecnico = new Tecnico();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -65,24 +54,13 @@ public class TecnicoServiceImpl implements TecnicoService {
 
     @Override
     public boolean atualizaTecnico(TecnicoDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
-        }
+        validar(dto);
         if (dto.getId() == null || dto.getId().trim().isEmpty()) {
             throw new IllegalArgumentException("Id nao pode ser nulo.");
         }
         int id = Integer.parseInt(dto.getId().trim());
         if (tecnicoRepository.buscar(id) == null) {
             throw new RuntimeException("Tecnico nao encontrado.");
-        }
-        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
-            throw new IllegalArgumentException("Nome nao pode ser vazio.");
-        }
-        if (dto.getEspecialidade() == null || dto.getEspecialidade().trim().isEmpty()) {
-            throw new IllegalArgumentException("Especialidade nao pode ser vazio.");
-        }
-        if (dto.getTelefone() == null || !dto.getTelefone().trim().matches("^[0-9]{10,11}$")) {
-            throw new IllegalArgumentException("Telefone nao pode ser vazio ou com mais de 11 digitos.");
         }
 
         Tecnico tecnico = new Tecnico();
@@ -95,5 +73,20 @@ public class TecnicoServiceImpl implements TecnicoService {
         }
 
         return tecnicoRepository.atualizar(tecnico);
+    }
+
+    private void validar(TecnicoDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
+        }
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome nao pode ser vazio.");
+        }
+        if (dto.getEspecialidade() == null || dto.getEspecialidade().trim().isEmpty()) {
+            throw new IllegalArgumentException("Especialidade nao pode ser vazio.");
+        }
+        if (dto.getTelefone() == null || !dto.getTelefone().trim().matches("^[0-9]{10,11}$")) {
+            throw new IllegalArgumentException("Telefone nao pode ser vazio ou com mais de 11 digitos.");
+        }
     }
 }

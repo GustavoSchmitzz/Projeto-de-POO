@@ -14,31 +14,8 @@ public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
 
     @Override
     public OrdemDeServico abrirOrdem(OrdemDeServicoDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("ordemDeServico nao pode ser nulo.");
-        }
-        if (dto.getDataInicio() == null || dto.getDataInicio().trim().isEmpty()) {
-            throw new IllegalArgumentException("dataInicio nao pode ser nulo.");
-        }
-        if (dto.getValorServico() == null || dto.getValorServico().trim().isEmpty()) {
-            throw new IllegalArgumentException("valorServico nao pode ser menor que zero.");
-        }
+        validar(dto);
         double valorServico = Double.parseDouble(dto.getValorServico().trim());
-        if (valorServico < 0) {
-            throw new IllegalArgumentException("valorServico nao pode ser menor que zero.");
-        }
-        if (BigDecimal.valueOf(valorServico).scale() > 2) {
-            throw new IllegalArgumentException("O valor do servico nao deve ter mais de duas casas decimais.");
-        }
-        if (dto.getTecnico() == null || dto.getTecnico().trim().isEmpty()) {
-            throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
-        }
-        if (dto.getPeca() == null || dto.getPeca().trim().isEmpty()) {
-            throw new IllegalArgumentException("Peca nao pode ser nulo.");
-        }
-        if (dto.getStatusServico() == null || dto.getStatusServico().trim().isEmpty())  {
-            throw new IllegalArgumentException("StatusServico nao pode ser nulo.");
-        }
 
         OrdemDeServico ordemDeServico = new OrdemDeServico();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -78,6 +55,34 @@ public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
         }
 
         return ordemDeServico;
+    }
+
+    private void validar(OrdemDeServicoDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("ordemDeServico nao pode ser nulo.");
+        }
+        if (dto.getDataInicio() == null || dto.getDataInicio().trim().isEmpty()) {
+            throw new IllegalArgumentException("dataInicio nao pode ser nulo.");
+        }
+        if (dto.getValorServico() == null || dto.getValorServico().trim().isEmpty()) {
+            throw new IllegalArgumentException("valorServico nao pode ser menor que zero.");
+        }
+        double valorServico = Double.parseDouble(dto.getValorServico().trim());
+        if (valorServico < 0) {
+            throw new IllegalArgumentException("valorServico nao pode ser menor que zero.");
+        }
+        if (BigDecimal.valueOf(valorServico).scale() > 2) {
+            throw new IllegalArgumentException("O valor do servico nao deve ter mais de duas casas decimais.");
+        }
+        if (dto.getTecnico() == null || dto.getTecnico().trim().isEmpty()) {
+            throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
+        }
+        if (dto.getPeca() == null || dto.getPeca().trim().isEmpty()) {
+            throw new IllegalArgumentException("Peca nao pode ser nulo.");
+        }
+        if (dto.getStatusServico() == null || dto.getStatusServico().trim().isEmpty())  {
+            throw new IllegalArgumentException("StatusServico nao pode ser nulo.");
+        }
     }
 
 }

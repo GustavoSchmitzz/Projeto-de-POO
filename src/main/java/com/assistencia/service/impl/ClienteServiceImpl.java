@@ -11,9 +11,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente cadastrar(ClienteDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("cliente nao pode ser nulo.");
-        }
+        validar(dto);
 
         Cliente cliente = new Cliente();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -40,9 +38,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public boolean remover(int id) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("id nao pode ser menor ou igual a zero.");
-        }
+        
         Cliente cliente = clienteRepository.buscar(id);
         if (cliente == null) {
             throw new IllegalArgumentException("cliente nao encontrado.");
@@ -52,9 +48,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public boolean atualizar(ClienteDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("cliente nao pode ser nulo.");
-        }
+        validar(dto);
         if (dto.getId() == null || dto.getId().trim().isEmpty()) {
             throw new IllegalArgumentException("id nao pode ser nulo.");
         }
@@ -70,5 +64,12 @@ public class ClienteServiceImpl implements ClienteService {
         cliente.setTelefone(dto.getTelefone());
 
         return clienteRepository.atualizar(cliente);
+    }
+
+    private void validar(ClienteDto dto) {
+        
+        if (dto == null) {
+            throw new IllegalArgumentException("cliente nao pode ser nulo.");
+        }
     }
 }

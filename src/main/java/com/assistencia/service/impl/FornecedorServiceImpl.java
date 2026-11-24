@@ -11,9 +11,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Override
     public Fornecedor cadastrar(FornecedorDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("fornecedor nao pode ser nulo.");
-        }
+        validar(dto);
 
         Fornecedor fornecedor = new Fornecedor();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -54,9 +52,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Override
     public boolean atualizar(FornecedorDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("fornecedor nao pode ser nulo.");
-        }
+        validar(dto);
         if (dto.getId() == null || dto.getId().trim().isEmpty()) {
             throw new IllegalArgumentException("id nao pode ser nulo.");
         }
@@ -74,5 +70,11 @@ public class FornecedorServiceImpl implements FornecedorService {
         }
         
         return fornecedorRepository.atualizar(fornecedor);
+    }
+
+    private void validar(FornecedorDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("fornecedor nao pode ser nulo.");
+        }
     }
 }

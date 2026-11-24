@@ -13,22 +13,8 @@ public class OrdemPecaServiceImpl implements OrdemPecaService {
 
     @Override
     public OrdemPeca abreOrdemPeca(OrdemPecaDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("ordemPeca nao pode ser nulo.");
-        }
-        if (dto.getQuantidade() == null || dto.getQuantidade().trim().isEmpty()) {
-            throw new IllegalArgumentException("Quantidade nao pode ser menor ou igual a zero.");
-        }
+        validar(dto);
         int quantidade = Integer.parseInt(dto.getQuantidade().trim());
-        if (quantidade <= 0) {
-            throw new IllegalArgumentException("Quantidade nao pode ser menor ou igual a zero.");
-        }
-        if (dto.getOrdemDeServico() == null || dto.getOrdemDeServico().trim().isEmpty()) {
-            throw new IllegalArgumentException("OrdemDeServico nao pode ser nulo.");
-        }
-        if (dto.getPeca() == null || dto.getPeca().trim().isEmpty()) {
-            throw new IllegalArgumentException("Peca nao pode ser nulo.");
-        }
 
         OrdemPeca ordemPeca = new OrdemPeca();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -45,6 +31,25 @@ public class OrdemPecaServiceImpl implements OrdemPecaService {
         ordemPeca.setPeca(peca);
 
         return ordemPecaRepository.criar(ordemPeca);
+    }
+
+    private void validar(OrdemPecaDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("ordemPeca nao pode ser nulo.");
+        }
+        if (dto.getQuantidade() == null || dto.getQuantidade().trim().isEmpty()) {
+            throw new IllegalArgumentException("Quantidade nao pode ser menor ou igual a zero.");
+        }
+        int quantidade = Integer.parseInt(dto.getQuantidade().trim());
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("Quantidade nao pode ser menor ou igual a zero.");
+        }
+        if (dto.getOrdemDeServico() == null || dto.getOrdemDeServico().trim().isEmpty()) {
+            throw new IllegalArgumentException("OrdemDeServico nao pode ser nulo.");
+        }
+        if (dto.getPeca() == null || dto.getPeca().trim().isEmpty()) {
+            throw new IllegalArgumentException("Peca nao pode ser nulo.");
+        }
     }
 }
 

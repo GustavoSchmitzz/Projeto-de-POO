@@ -13,16 +13,8 @@ public class GarantiaServiceImpl implements GarantiaService {
 
     @Override
     public Garantia adicionaGarantia(GarantiaDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("A garantia nao pode ser nula.");
-        }
-        if (dto.getDiasDeGarantia() == null || dto.getDiasDeGarantia().trim().isEmpty()) {
-            throw new IllegalArgumentException("Os dias de garantia nao deve ser menor que 90.");
-        }
+        validar(dto);
         int dias = Integer.parseInt(dto.getDiasDeGarantia().trim());
-        if (dias < 90) {
-            throw new IllegalArgumentException("Os dias de garantia nao deve ser menor que 90.");
-        }
 
         Garantia garantia = new Garantia();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -54,6 +46,19 @@ public class GarantiaServiceImpl implements GarantiaService {
         }
 
         return true;
+    }
+    
+    private void validar(GarantiaDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("A garantia nao pode ser nula.");
+        }
+        if (dto.getDiasDeGarantia() == null || dto.getDiasDeGarantia().trim().isEmpty()) {
+            throw new IllegalArgumentException("Os dias de garantia nao deve ser menor que 90.");
+        }
+        int dias = Integer.parseInt(dto.getDiasDeGarantia().trim());
+        if (dias < 90) {
+            throw new IllegalArgumentException("Os dias de garantia nao deve ser menor que 90.");
+        }
     }
 }
 

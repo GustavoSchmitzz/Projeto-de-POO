@@ -25,24 +25,7 @@ public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
 
     @Override
     public PecaComDefeito adicionaPeca(PecaComDefeitoDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("Peca com defeito nao pode ser nulo.");
-        }
-        if (dto.getTipoPeca() == null || dto.getTipoPeca().trim().isEmpty()) {
-            throw new IllegalArgumentException("O Tipo de Peca nao pode ser nulo ou vazio.");
-        }
-        if (dto.getMarca() == null || dto.getMarca().trim().isEmpty()) {
-            throw new IllegalArgumentException("A marca nao pode ser nulo ou vazio.");
-        }
-        if (dto.getDescricao() == null || dto.getDescricao().trim().isEmpty()) {
-            throw new IllegalArgumentException("A Descricao nao pode ser nula ou vazia.");
-        }
-        if (dto.getModelo() == null ||  dto.getModelo().trim().isEmpty()) {
-            throw new IllegalArgumentException("O modelo nao pode ser nula ou vazia.");
-        }
-        if (dto.getCliente() == null || dto.getCliente().trim().isEmpty() || Integer.parseInt(dto.getCliente().trim()) <= 0) {
-            throw new IllegalArgumentException("O Id nao pode ser nulo ou menor que 1.");
-        }
+        validar(dto);
 
         PecaComDefeito pecaComDefeito = new PecaComDefeito();
         if (dto.getId() != null && !dto.getId().trim().isEmpty()) {
@@ -62,30 +45,13 @@ public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
 
     @Override
     public boolean atualizaPecaComDefeito(PecaComDefeitoDto dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("Peca com defeito nao pode ser nulo.");
-        }
+        validar(dto);
         if (dto.getId() == null || dto.getId().trim().isEmpty()) {
             throw new IllegalArgumentException("O Id nao pode ser nulo.");
         }
         int id = Integer.parseInt(dto.getId().trim());
         if (pecaComDefeitoRepository.buscar(id) == null) {
             throw new RuntimeException("O produto com defeito nao existe no banco de dados.");
-        }
-        if (dto.getTipoPeca() == null || dto.getTipoPeca().trim().isEmpty()) {
-            throw new IllegalArgumentException("O Tipo de Peca nao pode ser nulo ou vazio.");
-        }
-        if (dto.getModelo() == null || dto.getModelo().trim().isEmpty()) {
-            throw new IllegalArgumentException("O Modelo nao pode ser nulo ou vazio.");
-        }
-        if (dto.getMarca() == null || dto.getMarca().trim().isEmpty()) {
-            throw new IllegalArgumentException("A marca nao pode ser nula ou vazia.");
-        }
-        if (dto.getDescricao() == null ||  dto.getDescricao().trim().isEmpty()) {
-            throw new IllegalArgumentException("A Descricao nao pode ser nula ou vazia.");
-        }
-        if (dto.getCliente() == null || dto.getCliente().trim().isEmpty() || Integer.parseInt(dto.getCliente().trim()) <= 0) {
-            throw new IllegalArgumentException("O Id nao pode ser nulo ou menor que 1.");
         }
 
         PecaComDefeito pecaComDefeito = new PecaComDefeito();
@@ -100,5 +66,26 @@ public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
         pecaComDefeito.setCliente(cliente);
 
         return pecaComDefeitoRepository.atualizar(pecaComDefeito);
+    }
+
+    private void validar(PecaComDefeitoDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("Peca com defeito nao pode ser nulo.");
+        }
+        if (dto.getTipoPeca() == null || dto.getTipoPeca().trim().isEmpty()) {
+            throw new IllegalArgumentException("O Tipo de Peca nao pode ser nulo ou vazio.");
+        }
+        if (dto.getMarca() == null || dto.getMarca().trim().isEmpty()) {
+            throw new IllegalArgumentException("A marca nao pode ser nulo ou vazio.");
+        }
+        if (dto.getDescricao() == null || dto.getDescricao().trim().isEmpty()) {
+            throw new IllegalArgumentException("A Descricao nao pode ser nula ou vazia.");
+        }
+        if (dto.getModelo() == null ||  dto.getModelo().trim().isEmpty()) {
+            throw new IllegalArgumentException("O modelo nao pode ser nula ou vazia.");
+        }
+        if (dto.getCliente() == null || dto.getCliente().trim().isEmpty() || Integer.parseInt(dto.getCliente().trim()) <= 0) {
+            throw new IllegalArgumentException("O Id nao pode ser nulo ou menor que 1.");
+        }
     }
 }
