@@ -54,6 +54,7 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         descricaoJLabel = new javax.swing.JLabel();
         descricaoJScrollPane = new javax.swing.JScrollPane();
         descricaoJTextArea = new javax.swing.JTextArea();
+        editarJButton = new javax.swing.JButton();
 
         idJLabel.setText("Id:");
 
@@ -116,6 +117,9 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         descricaoJTextArea.setRows(5);
         descricaoJScrollPane.setViewportView(descricaoJTextArea);
 
+        editarJButton.setText("Editar");
+        editarJButton.addActionListener(this::editarJButtonActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,6 +127,7 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editarJButton)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(descricaoJLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,11 +192,14 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descricaoJLabel)
-                    .addComponent(descricaoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addComponent(descricaoJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(editarJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        carregarTabela();
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarTabela() {
@@ -216,7 +224,24 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
     }
 
     private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarJButtonActionPerformed
-        // TODO add your handling code here:
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas > 0) {
+            int[] linhas = tabelaJTable.getSelectedRows();
+            try {
+                for (int i = 0; i < linhas.length; i++) {
+                    int id = Integer.parseInt(tabelaJTable.getValueAt(linhas[i], 0).toString());
+                    service.remover(id);
+                }
+                JOptionPane.showMessageDialog(this, "Registro(s) Deletado(s)");
+                cancelarJButtonActionPerformed(evt);
+                carregarTabela();
+            } catch (RuntimeException erro) {
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+                erro.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos um registro");
+        }
     }//GEN-LAST:event_deletarJButtonActionPerformed
 
     private void modeloJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloJTextFieldActionPerformed
@@ -251,6 +276,21 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
+    private void editarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarJButtonActionPerformed
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas == 1) {
+            int linha = tabelaJTable.getSelectedRow();
+            idJTextField.setText(tabelaJTable.getValueAt(linha, 0) + "");
+            tipoPecaJTextField.setText(tabelaJTable.getValueAt(linha, 1) + "");
+            marcaJTextField.setText(tabelaJTable.getValueAt(linha, 2) + "");
+            modeloJTextField.setText(tabelaJTable.getValueAt(linha, 3) + "");
+            idClienteJTextField.setText(tabelaJTable.getValueAt(linha, 4) + "");
+            descricaoJTextArea.setText(tabelaJTable.getValueAt(linha, 5) + "");
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um registro");
+        }
+    }//GEN-LAST:event_editarJButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IdClienteJLabel;
@@ -259,6 +299,7 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel descricaoJLabel;
     private javax.swing.JScrollPane descricaoJScrollPane;
     private javax.swing.JTextArea descricaoJTextArea;
+    private javax.swing.JButton editarJButton;
     private javax.swing.JTextField idClienteJTextField;
     private javax.swing.JLabel idJLabel;
     private javax.swing.JTextField idJTextField;

@@ -45,6 +45,7 @@ public class GarantiaJPanel extends javax.swing.JPanel {
         cancelarJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaJTable = new javax.swing.JTable();
+        editarJButton = new javax.swing.JButton();
 
         idJLabel.setText("Id:");
 
@@ -75,6 +76,9 @@ public class GarantiaJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tabelaJTable);
 
+        editarJButton.setText("Editar");
+        editarJButton.addActionListener(this::editarJButtonActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +103,9 @@ public class GarantiaJPanel extends javax.swing.JPanel {
                             .addComponent(cancelarJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editarJButton)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -118,7 +124,9 @@ public class GarantiaJPanel extends javax.swing.JPanel {
                 .addComponent(deletarJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelarJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(editarJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
@@ -166,12 +174,46 @@ public class GarantiaJPanel extends javax.swing.JPanel {
         diasDeGarantiaJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
+    private void editarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarJButtonActionPerformed
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas == 1) {
+            int linha = tabelaJTable.getSelectedRow();
+            idJTextField.setText(tabelaJTable.getValueAt(linha, 0) + "");
+            diasDeGarantiaJTextField.setText(tabelaJTable.getValueAt(linha, 1) + "");
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um registro");
+        }
+    }//GEN-LAST:event_editarJButtonActionPerformed
+
+
+    
+    private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas > 0) {
+            int[] linhas = tabelaJTable.getSelectedRows();
+            try {
+                for (int i = 0; i < linhas.length; i++) {
+                    int id = Integer.parseInt(tabelaJTable.getValueAt(linhas[i], 0).toString());
+                    service.removerGarantia(id);
+                }
+                JOptionPane.showMessageDialog(this, "Registro(s) Deletado(s)");
+                cancelarJButtonActionPerformed(evt);
+                carregarTabela();
+            } catch (RuntimeException erro) {
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+                erro.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos um registro");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarJButton;
     private javax.swing.JButton deletarJButton;
     private javax.swing.JLabel diasDeGarantiaJLabel;
     private javax.swing.JTextField diasDeGarantiaJTextField;
+    private javax.swing.JButton editarJButton;
     private javax.swing.JLabel idJLabel;
     private javax.swing.JTextField idJTextField;
     private javax.swing.JScrollPane jScrollPane1;

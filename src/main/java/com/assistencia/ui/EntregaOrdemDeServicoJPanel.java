@@ -47,17 +47,18 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
         cancelarJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaJTable = new javax.swing.JTable();
+        editarJButton = new javax.swing.JButton();
 
         idJLabel.setText("Id:");
-
-        idJTextField.setEditable(false);
-        idJTextField.setEnabled(false);
 
         dataDeEntragaJLabel.setText("Data de entrega:");
 
         dataDaEntregaJFormattedTextField.addActionListener(this::dataDaEntregaJFormattedTextFieldActionPerformed);
 
         idDaOSJLabel.setText("Id da OS:");
+
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
 
         idDaOSJTextField.setEditable(false);
         idDaOSJTextField.setEnabled(false);
@@ -98,6 +99,9 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabelaJTable);
 
+        editarJButton.setText("Editar");
+        editarJButton.addActionListener(this::editarJButtonActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +109,9 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editarJButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1084, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(67, Short.MAX_VALUE))
@@ -149,7 +156,9 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
                         .addComponent(deletarJButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelarJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(editarJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -200,12 +209,47 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
         dataDaEntregaJFormattedTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
+    private void editarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarJButtonActionPerformed
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas == 1) {
+            int linha = tabelaJTable.getSelectedRow();
+            idJTextField.setText(tabelaJTable.getValueAt(linha, 0) + "");
+            dataDaEntregaJFormattedTextField.setText(tabelaJTable.getValueAt(linha, 1) + "");
+            idDaOSJTextField.setText(tabelaJTable.getValueAt(linha, 2) + "");
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um registro");
+        }
+    }//GEN-LAST:event_editarJButtonActionPerformed
+
+
+    
+    private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas > 0) {
+            int[] linhas = tabelaJTable.getSelectedRows();
+            try {
+                for (int i = 0; i < linhas.length; i++) {
+                    int id = Integer.parseInt(tabelaJTable.getValueAt(linhas[i], 0).toString());
+                    service.reverteAEntrega(id);
+                }
+                JOptionPane.showMessageDialog(this, "Registro(s) Deletado(s)");
+                cancelarJButtonActionPerformed(evt);
+                carregarTabela();
+            } catch (RuntimeException erro) {
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+                erro.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos um registro");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarJButton;
     private javax.swing.JFormattedTextField dataDaEntregaJFormattedTextField;
     private javax.swing.JLabel dataDeEntragaJLabel;
     private javax.swing.JButton deletarJButton;
+    private javax.swing.JButton editarJButton;
     private javax.swing.JLabel idDaOSJLabel;
     private javax.swing.JTextField idDaOSJTextField;
     private javax.swing.JLabel idJLabel;

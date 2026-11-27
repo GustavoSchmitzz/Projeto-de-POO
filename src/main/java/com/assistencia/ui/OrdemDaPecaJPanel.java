@@ -49,6 +49,7 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
         cancelarJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaJTable = new javax.swing.JTable();
+        editarJButton = new javax.swing.JButton();
 
         idJLabel.setText("Id:");
 
@@ -103,6 +104,9 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabelaJTable);
 
+        editarJButton.setText("Editar");
+        editarJButton.addActionListener(this::editarJButtonActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,6 +114,7 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editarJButton)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -158,10 +163,13 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
                     .addComponent(idDaOSJLabel)
                     .addComponent(idDaOSJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelarJButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(editarJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
+        carregarTabela();
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarTabela() {
@@ -207,10 +215,46 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
+    private void editarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarJButtonActionPerformed
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas == 1) {
+            int linha = tabelaJTable.getSelectedRow();
+            idJTextField.setText(tabelaJTable.getValueAt(linha, 0) + "");
+            quantidadeJTextField.setText(tabelaJTable.getValueAt(linha, 1) + "");
+            idDaPecaJTextField.setText(tabelaJTable.getValueAt(linha, 2) + "");
+            idDaOSJTextField.setText(tabelaJTable.getValueAt(linha, 3) + "");
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um registro");
+        }
+    }//GEN-LAST:event_editarJButtonActionPerformed
+
+
+    
+    private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas > 0) {
+            int[] linhas = tabelaJTable.getSelectedRows();
+            try {
+                for (int i = 0; i < linhas.length; i++) {
+                    int id = Integer.parseInt(tabelaJTable.getValueAt(linhas[i], 0).toString());
+                    service.remover(id);
+                }
+                JOptionPane.showMessageDialog(this, "Registro(s) Deletado(s)");
+                cancelarJButtonActionPerformed(evt);
+                carregarTabela();
+            } catch (RuntimeException erro) {
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+                erro.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos um registro");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarJButton;
     private javax.swing.JButton deletarJButton;
+    private javax.swing.JButton editarJButton;
     private javax.swing.JLabel idDaOSJLabel;
     private javax.swing.JTextField idDaOSJTextField;
     private javax.swing.JLabel idDaPecaJLabel;

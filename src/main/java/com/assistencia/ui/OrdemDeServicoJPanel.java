@@ -59,6 +59,7 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         salvarJButton = new javax.swing.JButton();
         deletarJbutton = new javax.swing.JButton();
         cancelarJButton = new javax.swing.JButton();
+        editarJButton = new javax.swing.JButton();
 
         idJLabel.setText("Id:");
 
@@ -140,6 +141,9 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         cancelarJButton.setText("Cancelar");
         cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
+        editarJButton.setText("Editar");
+        editarJButton.addActionListener(this::editarJButtonActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,6 +151,7 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editarJButton)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -235,10 +240,13 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idPagamentoJLabel)
                     .addComponent(idPagamentoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(editarJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        carregarTabela();
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarTabela() {
@@ -307,6 +315,46 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
+    private void editarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarJButtonActionPerformed
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas == 1) {
+            int linha = tabelaJTable.getSelectedRow();
+            idJTextField.setText(tabelaJTable.getValueAt(linha, 0) + "");
+            dataDeInicioJTextField.setText(tabelaJTable.getValueAt(linha, 1) + "");
+            valorServicoJTextField.setText(tabelaJTable.getValueAt(linha, 2) + "");
+            idTecnicoJTextField.setText(tabelaJTable.getValueAt(linha, 3) + "");
+            idOrdemDaPecajTextField.setText(tabelaJTable.getValueAt(linha, 4) + "");
+            idStatusServicoJTextField.setText(tabelaJTable.getValueAt(linha, 5) + "");
+            idPecaJTextField.setText(tabelaJTable.getValueAt(linha, 6) + "");
+            idGarantiaJTextField.setText(tabelaJTable.getValueAt(linha, 7) + "");
+            idPagamentoTextField.setText(tabelaJTable.getValueAt(linha, 8) + "");
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione apenas um registro");
+        }
+    }//GEN-LAST:event_editarJButtonActionPerformed
+
+
+    
+    private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        int qtdLinhas = tabelaJTable.getSelectedRowCount();
+        if (qtdLinhas > 0) {
+            int[] linhas = tabelaJTable.getSelectedRows();
+            try {
+                for (int i = 0; i < linhas.length; i++) {
+                    int id = Integer.parseInt(tabelaJTable.getValueAt(linhas[i], 0).toString());
+                    service.remover(id);
+                }
+                JOptionPane.showMessageDialog(this, "Registro(s) Deletado(s)");
+                cancelarJButtonActionPerformed(evt);
+                carregarTabela();
+            } catch (RuntimeException erro) {
+                JOptionPane.showMessageDialog(this, erro.getMessage());
+                erro.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione pelo menos um registro");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IdOSJLabel;
@@ -314,6 +362,7 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel dataDeInicioJLabel;
     private javax.swing.JTextField dataDeInicioJTextField;
     private javax.swing.JButton deletarJbutton;
+    private javax.swing.JButton editarJButton;
     private javax.swing.JLabel idGarantiaJLabel;
     private javax.swing.JTextField idGarantiaJTextField;
     private javax.swing.JLabel idJLabel;
