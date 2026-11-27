@@ -4,6 +4,8 @@
  */
 package com.assistencia.ui;
 
+import javax.swing.JOptionPane;
+
 import com.assistencia.service.GarantiaService;
 import com.assistencia.service.ServiceAbstractFactory;
 import com.assistencia.service.dto.GarantiaDto;
@@ -145,7 +147,18 @@ public class GarantiaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_idJTextFieldActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        // TODO add your handling code here:
+        GarantiaDto dto = new GarantiaDto();
+        dto.setId(idJTextField.getText());
+        dto.setDiasDeGarantia(diasDeGarantiaJTextField.getText());
+        try {
+            service.adicionaGarantia(dto);
+            JOptionPane.showMessageDialog(this, " Registo Salvo");
+            cancelarJButtonActionPerformed(evt);
+            carregarTabela();
+        } catch (RuntimeException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            erro.printStackTrace();
+        }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed

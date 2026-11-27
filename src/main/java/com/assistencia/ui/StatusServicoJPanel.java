@@ -4,6 +4,8 @@
  */
 package com.assistencia.ui;
 
+import javax.swing.JOptionPane;
+
 import com.assistencia.service.StatusServicoService;
 import com.assistencia.service.ServiceAbstractFactory;
 import com.assistencia.service.dto.StatusServicoDto;
@@ -157,7 +159,18 @@ public class StatusServicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        // TODO add your handling code here:
+        StatusServicoDto dto = new StatusServicoDto();
+        dto.setId(idJTextField.getText());
+        dto.setStatus(statusJTextField.getText());
+        try {
+            service.buscaPorId(Integer.parseInt(dto.getId().trim()));
+            JOptionPane.showMessageDialog(this, " Registo Salvo");
+            cancelarJButtonActionPerformed(evt);
+            carregarTabela();
+        } catch (RuntimeException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            erro.printStackTrace();
+        }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
 

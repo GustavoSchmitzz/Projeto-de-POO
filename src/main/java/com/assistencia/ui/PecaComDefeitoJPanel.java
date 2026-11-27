@@ -4,6 +4,8 @@
  */
 package com.assistencia.ui;
 
+import javax.swing.JOptionPane;
+
 import com.assistencia.service.PecaComDefeitoService;
 import com.assistencia.service.ServiceAbstractFactory;
 import com.assistencia.service.dto.PecaComDefeitoDto;
@@ -231,7 +233,22 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        // TODO add your handling code here:
+        PecaComDefeitoDto dto = new PecaComDefeitoDto();
+        dto.setId(idJTextField.getText());
+        dto.setTipoPeca(tipoPecaJTextField.getText());
+        dto.setMarca(marcaJTextField.getText());
+        dto.setModelo(modeloJTextField.getText());
+        dto.setCliente(idClienteJTextField.getText());
+        dto.setDescricao(descricaoJTextArea.getText());
+        try {
+            service.adicionaPeca(dto);
+            JOptionPane.showMessageDialog(this, " Registo Salvo");
+            cancelarJButtonActionPerformed(evt);
+            carregarTabela();
+        } catch (RuntimeException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            erro.printStackTrace();
+        }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
 

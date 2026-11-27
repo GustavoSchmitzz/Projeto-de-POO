@@ -4,6 +4,8 @@
  */
 package com.assistencia.ui;
 
+import javax.swing.JOptionPane;
+
 import com.assistencia.service.EntregaOrdemDeServicoService;
 import com.assistencia.service.ServiceAbstractFactory;
 import com.assistencia.service.dto.EntregaOrdemDeServicoDto;
@@ -177,7 +179,19 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_dataDaEntregaJFormattedTextFieldActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        // TODO add your handling code here:
+        EntregaOrdemDeServicoDto dto = new EntregaOrdemDeServicoDto();
+        dto.setId(idJTextField.getText());
+        dto.setDataEntrega(dataDaEntregaJFormattedTextField.getText());
+        dto.setOrdemDeServico(idDaOSJTextField.getText());
+        try {
+            service.entregaAOrdemDeServico(Integer.parseInt(dto.getOrdemDeServico().trim()));
+            JOptionPane.showMessageDialog(this, " Registo Salvo");
+            cancelarJButtonActionPerformed(evt);
+            carregarTabela();
+        } catch (RuntimeException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            erro.printStackTrace();
+        }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed

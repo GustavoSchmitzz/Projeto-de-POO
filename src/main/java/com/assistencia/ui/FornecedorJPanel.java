@@ -4,6 +4,8 @@
  */
 package com.assistencia.ui;
 
+import javax.swing.JOptionPane;
+
 import com.assistencia.service.FornecedorService;
 import com.assistencia.service.ServiceAbstractFactory;
 import com.assistencia.service.dto.FornecedorDto;
@@ -189,7 +191,20 @@ public class FornecedorJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelarJButtonActionPerformed
 
     private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
-        // TODO add your handling code here:
+        FornecedorDto dto = new FornecedorDto();
+        dto.setId(idJTextField.getText());
+        dto.setNome(nomeJTextField.getText());
+        dto.setTelefone(telefoneJTextField.getText());
+        dto.setEmail(emailJTextField.getText());
+        try {
+            service.cadastrar(dto);
+            JOptionPane.showMessageDialog(this, " Registo Salvo");
+            cancelarJButtonActionPerformed(evt);
+            carregarTabela();
+        } catch (RuntimeException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            erro.printStackTrace();
+        }
     }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
