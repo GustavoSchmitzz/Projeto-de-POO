@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.EntregaOrdemDeServicoService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.EntregaOrdemDeServicoDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
+    private EntregaOrdemDeServicoService service = ServiceAbstractFactory.criarEntregaOrdemDeServicoService();
+
 
     /**
      * Creates new form EntregaOrdemDeServicoJPanel
@@ -143,7 +151,26 @@ public class EntregaOrdemDeServicoJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
+        carregarTabela();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void carregarTabela() {
+        List<EntregaOrdemDeServicoDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (EntregaOrdemDeServicoDto dto : lista) {
+            Object[] linha = new Object[3];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getDataEntrega();
+            linha[2] = dto.getOrdemDeServico();
+            
+            dfm.addRow(linha);
+        }
+    }
 
     private void dataDaEntregaJFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataDaEntregaJFormattedTextFieldActionPerformed
         // TODO add your handling code here:

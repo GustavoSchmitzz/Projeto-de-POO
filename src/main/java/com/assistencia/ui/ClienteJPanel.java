@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.ClienteService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.ClienteDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class ClienteJPanel extends javax.swing.JPanel {
+    private ClienteService service = ServiceAbstractFactory.criarClienteService();
+
 
     /**
      * Creates new form ClienteJPanel
@@ -151,7 +159,27 @@ public class ClienteJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
         );
+        carregarTabela();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void carregarTabela() {
+        List<ClienteDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (ClienteDto dto : lista) {
+            Object[] linha = new Object[4];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getNome();
+            linha[2] = dto.getTelefone();
+            linha[3] = dto.getEmail();
+            
+            dfm.addRow(linha);
+        }
+    }
 
     private void nomeJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeJTextFieldActionPerformed
         // TODO add your handling code here:

@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.TecnicoService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.TecnicoDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class TecnicoJPanel extends javax.swing.JPanel {
+    private TecnicoService service = ServiceAbstractFactory.criarTecnicoService();
+
 
     /**
      * Creates new form TecnicoJPanel
@@ -62,6 +70,7 @@ public class TecnicoJPanel extends javax.swing.JPanel {
         cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
 
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,6 +169,26 @@ public class TecnicoJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarTabela() {
+        List<TecnicoDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (TecnicoDto dto : lista) {
+            Object[] linha = new Object[5];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getNome();
+            linha[2] = dto.getTelefone();
+            linha[3] = dto.getEmail();
+            linha[4] = dto.getEspecialidade();
+            
+            dfm.addRow(linha);
+        }
+    }
+
     private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarJButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deletarJButtonActionPerformed
@@ -171,6 +200,10 @@ public class TecnicoJPanel extends javax.swing.JPanel {
         emailJTextField.setText("");
         especialidadeJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

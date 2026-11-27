@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.FornecedorService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.FornecedorDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class FornecedorJPanel extends javax.swing.JPanel {
+    private FornecedorService service = ServiceAbstractFactory.criarFornecedorService();
+
 
     /**
      * Creates new form FornecedorJPanel
@@ -42,18 +50,19 @@ public class FornecedorJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id:");
 
-        idJTextField.setEditable(false);
-        idJTextField.setEnabled(false);
-
         nomeJLabel.setText("Nome:");
 
         telefonejLabel.setText("Telefone:");
 
         emailJLabel.setText("Email:");
 
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         telefoneJTextField.addActionListener(this::telefoneJTextFieldActionPerformed);
 
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         deletarJButton.setText("Deletar");
 
@@ -149,6 +158,25 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarTabela() {
+        List<FornecedorDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (FornecedorDto dto : lista) {
+            Object[] linha = new Object[4];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getNome();
+            linha[2] = dto.getTelefone();
+            linha[3] = dto.getEmail();
+            
+            dfm.addRow(linha);
+        }
+    }
+
     private void telefoneJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_telefoneJTextFieldActionPerformed
@@ -159,6 +187,10 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         telefoneJTextField.setText("");
         emailJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

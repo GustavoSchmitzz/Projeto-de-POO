@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.StatusServicoService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.StatusServicoDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class StatusServicoJPanel extends javax.swing.JPanel {
+    private StatusServicoService service = ServiceAbstractFactory.criarStatusServicoService();
+
 
     /**
      * Creates new form StatusServicoJPanel
@@ -44,6 +52,7 @@ public class StatusServicoJPanel extends javax.swing.JPanel {
         idJTextField.setEnabled(false);
 
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         cancelarJButton.setText("Cancelar");
         cancelarJButton.addActionListener(this::cancelarJButtonActionPerformed);
@@ -125,10 +134,31 @@ public class StatusServicoJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarTabela() {
+        List<StatusServicoDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (StatusServicoDto dto : lista) {
+            Object[] linha = new Object[2];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getStatus();
+            
+            dfm.addRow(linha);
+        }
+    }
+
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
         idJTextField.setText("");
         statusJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

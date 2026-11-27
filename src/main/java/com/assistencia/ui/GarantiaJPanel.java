@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.GarantiaService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.GarantiaDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class GarantiaJPanel extends javax.swing.JPanel {
+    private GarantiaService service = ServiceAbstractFactory.criarGarantiaService();
+
 
     /**
      * Creates new form GarantiaJPanel
@@ -112,7 +120,25 @@ public class GarantiaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
+        carregarTabela();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void carregarTabela() {
+        List<GarantiaDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (GarantiaDto dto : lista) {
+            Object[] linha = new Object[2];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getDiasDeGarantia();
+            
+            dfm.addRow(linha);
+        }
+    }
 
     private void idJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idJTextFieldActionPerformed
         // TODO add your handling code here:

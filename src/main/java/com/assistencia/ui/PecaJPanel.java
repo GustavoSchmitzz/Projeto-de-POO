@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.PecaService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.PecaDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class PecaJPanel extends javax.swing.JPanel {
+    private PecaService service = ServiceAbstractFactory.criarPecaService();
+
 
     /**
      * Creates new form PecaJPanel
@@ -55,12 +63,13 @@ public class PecaJPanel extends javax.swing.JPanel {
         idJTextField.setEditable(false);
         idJTextField.setEnabled(false);
 
+        nomeJTextField.addActionListener(this::nomeJTextFieldActionPerformed);
+
         idFornecedorJTextField.setEditable(false);
         idFornecedorJTextField.setEnabled(false);
 
-        nomeJTextField.addActionListener(this::nomeJTextFieldActionPerformed);
-
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         deletarJButton.setText("Deletar");
 
@@ -164,6 +173,26 @@ public class PecaJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarTabela() {
+        List<PecaDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (PecaDto dto : lista) {
+            Object[] linha = new Object[5];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getNome();
+            linha[2] = dto.getValor();
+            linha[3] = dto.getEstoque();
+            linha[4] = dto.getFornecedor();
+            
+            dfm.addRow(linha);
+        }
+    }
+
     private void nomeJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeJTextFieldActionPerformed
@@ -175,6 +204,10 @@ public class PecaJPanel extends javax.swing.JPanel {
         estoqueJTextField.setText("");
         idFornecedorJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.OrdemPecaService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.OrdemPecaDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class OrdemDaPecaJPanel extends javax.swing.JPanel {
+    private OrdemPecaService service = ServiceAbstractFactory.criarOrdemPecaService();
+
 
     /**
      * Creates new form OrdemDaPecaJPanel
@@ -42,22 +50,23 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
 
         idJLabel.setText("Id:");
 
-        idJTextField.setEditable(false);
-        idJTextField.setEnabled(false);
-
         quantidadeJLabel.setText("Quantidade:");
 
         idDaPecaJLabel.setText("Id da peça:");
 
+        idDaOSJLabel.setText("Id da OS:");
+
+        idJTextField.setEditable(false);
+        idJTextField.setEnabled(false);
+
         idDaPecaJTextField.setEditable(false);
         idDaPecaJTextField.setEnabled(false);
-
-        idDaOSJLabel.setText("Id da OS:");
 
         idDaOSJTextField.setEditable(false);
         idDaOSJTextField.setEnabled(false);
 
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         deletarJButton.setText("Deletar");
 
@@ -152,6 +161,25 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
                 .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void carregarTabela() {
+        List<OrdemPecaDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (OrdemPecaDto dto : lista) {
+            Object[] linha = new Object[4];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getQuantidade();
+            linha[2] = dto.getPeca();
+            linha[3] = dto.getOrdemDeServico();
+            
+            dfm.addRow(linha);
+        }
+    }
  
     private void cancelarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarJButtonActionPerformed
         idJTextField.setText("");
@@ -159,6 +187,10 @@ public class OrdemDaPecaJPanel extends javax.swing.JPanel {
         idDaPecaJTextField.setText("");
         idDaOSJTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

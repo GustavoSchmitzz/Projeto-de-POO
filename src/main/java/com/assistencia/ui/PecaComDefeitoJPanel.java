@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.PecaComDefeitoService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.PecaComDefeitoDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class PecaComDefeitoJPanel extends javax.swing.JPanel {
+    private PecaComDefeitoService service = ServiceAbstractFactory.criarPecaComDefeitoService();
+
 
     /**
      * Creates new form PecaComDefeitoJPanel
@@ -58,12 +66,13 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         idJTextField.setEditable(false);
         idJTextField.setEnabled(false);
 
+        modeloJTextField.addActionListener(this::modeloJTextFieldActionPerformed);
+
         idClienteJTextField.setEditable(false);
         idClienteJTextField.setEnabled(false);
 
-        modeloJTextField.addActionListener(this::modeloJTextFieldActionPerformed);
-
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         deletarJButton.setText("Deletar");
         deletarJButton.addActionListener(this::deletarJButtonActionPerformed);
@@ -183,6 +192,27 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarTabela() {
+        List<PecaComDefeitoDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (PecaComDefeitoDto dto : lista) {
+            Object[] linha = new Object[6];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getTipoPeca();
+            linha[2] = dto.getMarca();
+            linha[3] = dto.getModelo();
+            linha[4] = dto.getCliente();
+            linha[5] = dto.getDescricao();
+            
+            dfm.addRow(linha);
+        }
+    }
+
     private void deletarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletarJButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deletarJButtonActionPerformed
@@ -199,6 +229,10 @@ public class PecaComDefeitoJPanel extends javax.swing.JPanel {
         idClienteJTextField.setText("");
         descricaoJTextArea.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

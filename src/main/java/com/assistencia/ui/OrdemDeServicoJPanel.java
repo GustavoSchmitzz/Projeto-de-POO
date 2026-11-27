@@ -4,11 +4,19 @@
  */
 package com.assistencia.ui;
 
+import com.assistencia.service.OrdemDeServicoService;
+import com.assistencia.service.ServiceAbstractFactory;
+import com.assistencia.service.dto.OrdemDeServicoDto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gustavoaes
  */
 public class OrdemDeServicoJPanel extends javax.swing.JPanel {
+    private OrdemDeServicoService service = ServiceAbstractFactory.criarOrdemDeServicoService();
+
 
     /**
      * Creates new form OrdemDeServicoJPanel
@@ -72,24 +80,6 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
 
         idPagamentoJLabel.setText("Id Pagamento:");
 
-        idTecnicoJTextField.setEditable(false);
-        idTecnicoJTextField.setEnabled(false);
-
-        idPecaJTextField.setEditable(false);
-        idPecaJTextField.setEnabled(false);
-
-        idOrdemDaPecajTextField.setEditable(false);
-        idOrdemDaPecajTextField.setEnabled(false);
-
-        idStatusServicoJTextField.setEditable(false);
-        idStatusServicoJTextField.setEnabled(false);
-
-        idGarantiaJTextField.setEditable(false);
-        idGarantiaJTextField.setEnabled(false);
-
-        idPagamentoTextField.setEditable(false);
-        idPagamentoTextField.setEnabled(false);
-
         tabelaJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -118,9 +108,30 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabelaJTable);
 
+        dataDeInicioJTextField.setEditable(false);
+        dataDeInicioJTextField.setEnabled(false);
         dataDeInicioJTextField.addActionListener(this::dataDeInicioJTextFieldActionPerformed);
 
+        idTecnicoJTextField.setEditable(false);
+        idTecnicoJTextField.setEnabled(false);
+
+        idPecaJTextField.setEditable(false);
+        idPecaJTextField.setEnabled(false);
+
+        idOrdemDaPecajTextField.setEditable(false);
+        idOrdemDaPecajTextField.setEnabled(false);
+
+        idStatusServicoJTextField.setEditable(false);
+        idStatusServicoJTextField.setEnabled(false);
+
+        idGarantiaJTextField.setEditable(false);
+        idGarantiaJTextField.setEnabled(false);
+
+        idPagamentoTextField.setEditable(false);
+        idPagamentoTextField.setEnabled(false);
+
         salvarJButton.setText("Salvar");
+        salvarJButton.addActionListener(this::salvarJButtonActionPerformed);
 
         deletarJbutton.setText("Deletar");
 
@@ -228,6 +239,30 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carregarTabela() {
+        List<OrdemDeServicoDto> lista = service.listarTodos();
+        
+        DefaultTableModel dfm = (DefaultTableModel) tabelaJTable.getModel();
+        
+        dfm.setNumRows(0);
+        
+        for (OrdemDeServicoDto dto : lista) {
+            Object[] linha = new Object[9];
+            
+            linha[0] = dto.getId();
+            linha[1] = dto.getDataInicio();
+            linha[2] = dto.getValorServico();
+            linha[3] = dto.getTecnico();
+            linha[4] = dto.getOrdemPeca();
+            linha[5] = dto.getStatusServico();
+            linha[6] = dto.getPeca();
+            linha[7] = dto.getGarantia();
+            linha[8] = dto.getPagamento();
+            
+            dfm.addRow(linha);
+        }
+    }
+
     private void idJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idJTextFieldActionPerformed
@@ -247,6 +282,10 @@ public class OrdemDeServicoJPanel extends javax.swing.JPanel {
         idGarantiaJTextField.setText("");
         idPagamentoTextField.setText("");
     }//GEN-LAST:event_cancelarJButtonActionPerformed
+
+    private void salvarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvarJButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
