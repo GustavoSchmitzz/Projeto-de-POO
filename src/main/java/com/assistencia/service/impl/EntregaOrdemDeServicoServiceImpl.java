@@ -6,8 +6,10 @@ import com.assistencia.persistencia.repository.EntregaOrdemDeServicoRepository;
 import com.assistencia.persistencia.repository.OrdemDeServicoRepository;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.EntregaOrdemDeServicoService;
+import com.assistencia.service.dto.EntregaOrdemDeServicoDto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class EntregaOrdemDeServicoServiceImpl implements EntregaOrdemDeServicoService {
     private final OrdemDeServicoRepository ordemDeServicoRepository = RepositoryAbstractFactory.criarOrdemDeServicoRepository();
@@ -74,5 +76,24 @@ public class EntregaOrdemDeServicoServiceImpl implements EntregaOrdemDeServicoSe
         }
 
         return entregaServicoRepository.deletar(idEntrega);
+    }
+
+    @Override
+    public List<EntregaOrdemDeServicoDto> listarTodos() {
+        List<EntregaOrdemDeServico> lista = entregaServicoRepository.buscarTodos();
+
+        List<EntregaOrdemDeServicoDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
+    private EntregaOrdemDeServicoDto toDto(EntregaOrdemDeServico entrega) {
+        EntregaOrdemDeServicoDto dto = new EntregaOrdemDeServicoDto();
+
+        dto.setId(entrega.getId() + "");
+        dto.setDataEntrega(entrega.getDataEntrega().toString());
+        dto.setOrdemDeServico(entrega.getOrdemDeServico().getId() + "");
+
+        return dto;
     }
 }

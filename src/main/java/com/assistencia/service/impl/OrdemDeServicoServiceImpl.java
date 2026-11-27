@@ -1,16 +1,17 @@
 package com.assistencia.service.impl;
 
 import com.assistencia.entity.*;
-import com.assistencia.persistencia.repository.FornecedorRepository;
+import com.assistencia.persistencia.repository.OrdemDeServicoRepository;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.OrdemDeServicoService;
 import com.assistencia.service.dto.OrdemDeServicoDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
-    private final FornecedorRepository fornecedorRepository = RepositoryAbstractFactory.criarFornecedorRepository();
+    private final OrdemDeServicoRepository ordemDeServicoRepository = RepositoryAbstractFactory.criarOrdemDeServicoRepository();
 
     @Override
     public OrdemDeServico abrirOrdem(OrdemDeServicoDto dto) {
@@ -57,6 +58,15 @@ public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
         return ordemDeServico;
     }
 
+    @Override
+    public List<OrdemDeServicoDto> listarTodos() {
+        List<OrdemDeServico> lista = ordemDeServicoRepository.buscarTodos();
+
+        List<OrdemDeServicoDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
     private void validar(OrdemDeServicoDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("ordemDeServico nao pode ser nulo.");
@@ -85,4 +95,19 @@ public class OrdemDeServicoServiceImpl implements OrdemDeServicoService {
         }
     }
 
+    private OrdemDeServicoDto toDto(OrdemDeServico ordemDeServico) {
+        OrdemDeServicoDto dto = new OrdemDeServicoDto();
+
+        dto.setId(ordemDeServico.getId() + "");
+        dto.setDataInicio(ordemDeServico.getDataInicio().toString());
+        dto.setValorServico(ordemDeServico.getValorServico() + "");
+        dto.setTecnico(ordemDeServico.getTecnico().getId() + "");
+        dto.setPeca(ordemDeServico.getPeca().getId() + "");
+        dto.setStatusServico(ordemDeServico.getStatusServico().getId() + "");
+        dto.setGarantia(ordemDeServico.getGarantia().getId() + "");
+        dto.setPagamento(ordemDeServico.getPagamento().getId() + "");
+        dto.setOrdemPeca(ordemDeServico.getOrdemPeca().getId() + "");
+
+        return dto;
+    }
 }

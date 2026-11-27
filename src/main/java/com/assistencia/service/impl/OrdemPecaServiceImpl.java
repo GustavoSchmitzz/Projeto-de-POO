@@ -8,6 +8,8 @@ import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.OrdemPecaService;
 import com.assistencia.service.dto.OrdemPecaDto;
 
+import java.util.List;
+
 public class OrdemPecaServiceImpl implements OrdemPecaService {
     private final OrdemPecaRepository ordemPecaRepository = RepositoryAbstractFactory.criarOrdemPecaRepository();
 
@@ -33,6 +35,15 @@ public class OrdemPecaServiceImpl implements OrdemPecaService {
         return ordemPecaRepository.criar(ordemPeca);
     }
 
+    @Override
+    public List<OrdemPecaDto> listarTodos() {
+        List<OrdemPeca> lista = ordemPecaRepository.buscarTodos();
+
+        List<OrdemPecaDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
     private void validar(OrdemPecaDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("ordemPeca nao pode ser nulo.");
@@ -50,6 +61,17 @@ public class OrdemPecaServiceImpl implements OrdemPecaService {
         if (dto.getPeca() == null || dto.getPeca().trim().isEmpty()) {
             throw new IllegalArgumentException("Peca nao pode ser nulo.");
         }
+    }
+
+    private OrdemPecaDto toDto(OrdemPeca ordemPeca) {
+        OrdemPecaDto dto = new OrdemPecaDto();
+
+        dto.setId(ordemPeca.getId() + "");
+        dto.setQuantidade(ordemPeca.getQuantidade() + "");
+        dto.setOrdemDeServico(ordemPeca.getOrdemDeServico().getId() + "");
+        dto.setPeca(ordemPeca.getPeca().getId() + "");
+
+        return dto;
     }
 }
 

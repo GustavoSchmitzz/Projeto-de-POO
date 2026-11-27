@@ -7,6 +7,8 @@ import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.PecaComDefeitoService;
 import com.assistencia.service.dto.PecaComDefeitoDto;
 
+import java.util.List;
+
 public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
 
     private final PecaComDefeitoRepository pecaComDefeitoRepository = RepositoryAbstractFactory.criarPecaComDefeitoRepository();
@@ -68,6 +70,15 @@ public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
         return pecaComDefeitoRepository.atualizar(pecaComDefeito);
     }
 
+    @Override
+    public List<PecaComDefeitoDto> listarTodos() {
+        List<PecaComDefeito> lista = pecaComDefeitoRepository.buscarTodos();
+
+        List<PecaComDefeitoDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
     private void validar(PecaComDefeitoDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Peca com defeito nao pode ser nulo.");
@@ -87,5 +98,18 @@ public class PecaComDefeitoServiceImpl implements PecaComDefeitoService {
         if (dto.getCliente() == null || dto.getCliente().trim().isEmpty() || Integer.parseInt(dto.getCliente().trim()) <= 0) {
             throw new IllegalArgumentException("O Id nao pode ser nulo ou menor que 1.");
         }
+    }
+
+    private PecaComDefeitoDto toDto(PecaComDefeito pecaComDefeito) {
+        PecaComDefeitoDto dto = new PecaComDefeitoDto();
+
+        dto.setId(pecaComDefeito.getId() + "");
+        dto.setTipoPeca(pecaComDefeito.getTipoPeca());
+        dto.setMarca(pecaComDefeito.getMarca());
+        dto.setModelo(pecaComDefeito.getModelo());
+        dto.setDescricao(pecaComDefeito.getDescricao());
+        dto.setCliente(pecaComDefeito.getCliente().getId() + "");
+
+        return dto;
     }
 }

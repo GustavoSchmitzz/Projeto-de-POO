@@ -7,6 +7,8 @@ import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.GarantiaService;
 import com.assistencia.service.dto.GarantiaDto;
 
+import java.util.List;
+
 public class GarantiaServiceImpl implements GarantiaService {
     private final GarantiaRepository garantiaRepository = RepositoryAbstractFactory.criarGarantiaRepository();
     private final OrdemDeServicoRepository ordemDeServicoRepository = RepositoryAbstractFactory.criarOrdemDeServicoRepository();
@@ -47,7 +49,16 @@ public class GarantiaServiceImpl implements GarantiaService {
 
         return true;
     }
-    
+
+    @Override
+    public List<GarantiaDto> listarTodos() {
+        List<Garantia> lista = garantiaRepository.buscarTodos();
+
+        List<GarantiaDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
     private void validar(GarantiaDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("A garantia nao pode ser nula.");
@@ -59,6 +70,15 @@ public class GarantiaServiceImpl implements GarantiaService {
         if (dias < 90) {
             throw new IllegalArgumentException("Os dias de garantia nao deve ser menor que 90.");
         }
+    }
+
+    private GarantiaDto toDto(Garantia garantia) {
+        GarantiaDto dto = new GarantiaDto();
+
+        dto.setId(garantia.getId() + "");
+        dto.setDiasDeGarantia(garantia.getDiasDeGarantia() + "");
+
+        return dto;
     }
 }
 

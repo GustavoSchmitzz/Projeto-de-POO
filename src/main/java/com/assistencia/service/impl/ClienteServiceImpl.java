@@ -5,6 +5,7 @@ import com.assistencia.persistencia.repository.ClienteRepository;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.ClienteService;
 import com.assistencia.service.dto.ClienteDto;
+import java.util.List;
 
 public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository clienteRepository = RepositoryAbstractFactory.criarClienteRepository();
@@ -65,11 +66,30 @@ public class ClienteServiceImpl implements ClienteService {
 
         return clienteRepository.atualizar(cliente);
     }
+    
+    @Override
+    public List<ClienteDto> listarTodos(){
+        List<Cliente> lista = clienteRepository.buscarTodos();
+        
+        List<ClienteDto> dtos = lista.stream().map(this::toDto).toList();
+        
+        return dtos;
+    }
 
     private void validar(ClienteDto dto) {
         
         if (dto == null) {
             throw new IllegalArgumentException("cliente nao pode ser nulo.");
         }
+    }
+    private ClienteDto toDto(Cliente cliente){
+        ClienteDto dto = new ClienteDto();
+        
+        dto.setId(cliente.getId() + "");
+        dto.setNome(cliente.getNome());
+        dto.setEmail(cliente.getEmail());
+        dto.setTelefone(cliente.getTelefone());
+        
+        return dto;
     }
 }

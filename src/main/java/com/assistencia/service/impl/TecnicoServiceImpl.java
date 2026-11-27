@@ -6,6 +6,8 @@ import com.assistencia.persistencia.repository.TecnicoRepository;
 import com.assistencia.service.TecnicoService;
 import com.assistencia.service.dto.TecnicoDto;
 
+import java.util.List;
+
 public class TecnicoServiceImpl implements TecnicoService {
     private final TecnicoRepository tecnicoRepository = RepositoryAbstractFactory.criarTecnicoRepository();
 
@@ -75,6 +77,15 @@ public class TecnicoServiceImpl implements TecnicoService {
         return tecnicoRepository.atualizar(tecnico);
     }
 
+    @Override
+    public List<TecnicoDto> listarTodos() {
+        List<Tecnico> lista = tecnicoRepository.buscarTodos();
+
+        List<TecnicoDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
     private void validar(TecnicoDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Tecnico nao pode ser nulo.");
@@ -88,5 +99,17 @@ public class TecnicoServiceImpl implements TecnicoService {
         if (dto.getTelefone() == null || !dto.getTelefone().trim().matches("^[0-9]{10,11}$")) {
             throw new IllegalArgumentException("Telefone nao pode ser vazio ou com mais de 11 digitos.");
         }
+    }
+
+    private TecnicoDto toDto(Tecnico tecnico) {
+        TecnicoDto dto = new TecnicoDto();
+
+        dto.setId(tecnico.getId() + "");
+        dto.setNome(tecnico.getNome());
+        dto.setTelefone(tecnico.getTelefone());
+        dto.setEmail(tecnico.getEmail());
+        dto.setEspecialidade(tecnico.getEspecialidade());
+
+        return dto;
     }
 }

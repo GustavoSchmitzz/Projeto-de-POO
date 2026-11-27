@@ -4,6 +4,9 @@ import com.assistencia.entity.Peca;
 import com.assistencia.persistencia.repository.PecaRepository;
 import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.PecaService;
+import com.assistencia.service.dto.PecaDto;
+
+import java.util.List;
 
 public class PecaServiceImpl implements PecaService {
     private final PecaRepository pecaRepository = RepositoryAbstractFactory.criarPecaRepository();
@@ -42,5 +45,26 @@ public class PecaServiceImpl implements PecaService {
         peca.setEstoque(peca.getEstoque() + quant);
 
         return pecaRepository.atualizar(peca);
+    }
+
+    @Override
+    public List<PecaDto> listarTodos() {
+        List<Peca> lista = pecaRepository.buscarTodos();
+
+        List<PecaDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
+    private PecaDto toDto(Peca peca) {
+        PecaDto dto = new PecaDto();
+
+        dto.setId(peca.getId() + "");
+        dto.setNome(peca.getNome());
+        dto.setValor(peca.getValor() + "");
+        dto.setEstoque(peca.getEstoque() + "");
+        dto.setFornecedor(peca.getFornecedor().getId() + "");
+
+        return dto;
     }
 }

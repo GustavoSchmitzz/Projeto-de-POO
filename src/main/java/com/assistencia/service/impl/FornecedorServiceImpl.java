@@ -6,6 +6,8 @@ import com.assistencia.persistencia.repository.RepositoryAbstractFactory;
 import com.assistencia.service.FornecedorService;
 import com.assistencia.service.dto.FornecedorDto;
 
+import java.util.List;
+
 public class FornecedorServiceImpl implements FornecedorService {
     private final FornecedorRepository fornecedorRepository = RepositoryAbstractFactory.criarFornecedorRepository();
 
@@ -72,9 +74,29 @@ public class FornecedorServiceImpl implements FornecedorService {
         return fornecedorRepository.atualizar(fornecedor);
     }
 
+    @Override
+    public List<FornecedorDto> listarTodos() {
+        List<Fornecedor> lista = fornecedorRepository.buscarTodos();
+
+        List<FornecedorDto> dtos = lista.stream().map(this::toDto).toList();
+
+        return dtos;
+    }
+
     private void validar(FornecedorDto dto) {
         if (dto == null) {
             throw new IllegalArgumentException("fornecedor nao pode ser nulo.");
         }
+    }
+
+    private FornecedorDto toDto(Fornecedor fornecedor) {
+        FornecedorDto dto = new FornecedorDto();
+
+        dto.setId(fornecedor.getId() + "");
+        dto.setNome(fornecedor.getNome());
+        dto.setTelefone(fornecedor.getTelefone());
+        dto.setEmail(fornecedor.getEmail());
+
+        return dto;
     }
 }
